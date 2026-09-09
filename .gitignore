@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+*.tsbuildinfo
+
+# Secrets — never commit
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+api.txt
+
+# Third-party clone (Scrapegraph-ai has its own git repo)
+scraper/Scrapegraph-ai/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-saffron: #ff6b35;
+  --color-primary-red: #c1121f;
+  --color-primary-gold: #fdb813;
+  --color-primary-cream: #fffdf8;
+  --color-primary-dark: #1a1a1a;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+}
+
+:root {
+  --background: var(--color-primary-cream);
+  --foreground: #1a1a1a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Vedic decorative gradient used across hero sections */
+.bg-vedic-gradient {
+  background: linear-gradient(135deg, #fff7ed 0%, #fffdf8 50%, #fef2f2 100%);
+}
+
+/* ---- Custom utilities ported 1:1 from the original site ---- */
+.saffron-gradient {
+  background: linear-gradient(135deg, #c1121f 0%, #ff6b35 50%, #fdb813 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-gradient-saffron {
+  background: linear-gradient(135deg, var(--color-primary-saffron), var(--color-primary-red));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.saffron-button {
+  color: #fff;
+  background: linear-gradient(135deg, #ff6b35 0%, #c1121f 100%);
+  transition: all 0.3s;
+}
+.saffron-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px #ff6b354d;
+}
+
+.mandala-bg {
+  background-image: radial-gradient(circle, #fde2c4 2px, transparent 2px);
+  background-size: 30px 30px;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes reverse-spin {
+  to { transform: rotate(-360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+.animate-reverse-spin {
+  animation: reverse-spin 18s linear infinite;
+}

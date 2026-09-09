@@ -1,0 +1,778 @@
+<div>
+  <!--$-->
+  <!--/$-->
+</div>
+<div .flex.flex-col.min-h-screen>
+  <nav .fixed.top-0.w-full.z-50.transition-all.duration-300.px-4.md:px-8.py-6.bg-transparent>
+    <div .max-w-7xl.mx-auto.flex.justify-between.items-center>
+      <a .flex.items-center.gap-2.group>
+        <div .relative>
+          <svg>
+        </div>
+        <div .flex.flex-col>
+          <span .font-serif.text-2xl.font-bold.text-primary-red.tracking-tight.leading-none> Shri Govind
+            <span .font-sans.text-[10px].font-bold.text-primary-saffron.uppercase.tracking-widest.leading-none.mt-1> Vedic Astrology
+            </div>
+          </a>
+          <div .hidden.md:flex.items-center.gap-8>
+            <a .text-sm.font-bold.transition-colors.hover:text-primary-saffron.text-primary-red> Home
+              <div .relative.group>
+                <button .text-sm.font-bold.text-gray-700.hover:text-primary-saffron.py-2> Free Tools ▼
+                </button>
+                <div .absolute.top-full.left-0.w-56.bg-white.shadow-xl.rounded-2xl.border.border-gray-100.opacity-0.invisible.group-hover:opacity-100.group-hover:visible.transition-all.duration-200.flex.flex-col.overflow-hidden.translate-y-2.group-hover:translate-y-0>
+                  <a .px-5.py-3.hover:bg-orange-50.hover:text-primary-saffron.font-bold.text-sm.text-gray-700.transition-colors.border-b.border-gray-50> Free Kundli
+                    <a .px-5.py-3.hover:bg-orange-50.hover:text-primary-saffron.font-bold.text-sm.text-gray-700.transition-colors.border-b.border-gray-50> Marriage Prediction
+                      <a .px-5.py-3.hover:bg-orange-50.hover:text-primary-saffron.font-bold.text-sm.text-gray-700.transition-colors.border-b.border-gray-50> Vimshottari Dasha
+                        <a .px-5.py-3.hover:bg-orange-50.hover:text-primary-saffron.font-bold.text-sm.text-gray-700.transition-colors.border-b.border-gray-50> Guna Milan (Matchmaking)
+                          <a .px-5.py-3.hover:bg-orange-50.hover:text-primary-saffron.font-bold.text-sm.text-gray-700.transition-colors.border-b.border-gray-50> Numerology Calculator
+                            <a .px-5.py-3.hover:bg-orange-50.hover:text-primary-saffron.font-bold.text-sm.text-gray-700.transition-colors> Zodiac Insights
+                            </div>
+                          </div>
+                          <a .text-sm.font-bold.transition-colors.hover:text-primary-saffron.text-gray-700> Services
+                            <a .text-sm.font-bold.transition-colors.hover:text-primary-saffron.text-gray-700> About Panditji
+                              <a .text-sm.font-bold.transition-colors.hover:text-primary-saffron.text-gray-700> Contact
+                                <a .px-6.py-2.5.saffron-button.font-bold.rounded-full.text-sm.uppercase.tracking-widest.shadow-md.ml-2> Get Kundli
+                                </div>
+                                <button .md:hidden.text-primary-red.p-2>
+                                  <svg>
+                                </button>
+                              </div>
+                            </nav>
+                            <main .flex-grow>
+                              <div .pt-24.pb-20.relative.bg-white>
+                                <section .relative.w-full.min-h-[90vh].flex.items-center.justify-center.overflow-hidden.py-20.lg:py-24>
+                                  <div .absolute.inset-0.z-0.opacity-[0.08]>
+                                  </div>
+                                  <div .absolute.inset-0.bg-gradient-to-b.from-white.via-transparent.to-white.z-0>
+                                  </div>
+                                  <div .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.relative.z-10.flex.flex-col.lg:flex-row.items-center.gap-12>
+                                    <div .flex-1.text-center.lg:text-left.pt-12.lg:pt-0.w-full>
+                                      <div .mb-6.inline-flex.items-center.gap-2.px-4.py-1.5.rounded-full.bg-white.shadow-sm.border.border-primary-saffron/20.text-primary-red.text-sm.font-bold.uppercase.tracking-widest>
+                                        <svg>
+                                        <span> Proven Results • 30+ Years Experience
+                                        </div>
+                                        <h1 .text-4xl.sm:text-5xl.lg:text-7xl.font-serif.font-bold.mb-6.tracking-tight.text-gray-900.leading-tight> Unlock Your Destiny with
+                                        <span .saffron-gradient> Pandit Shri Govind
+                                        </h1>
+                                        <p .text-lg.md:text-xl.text-gray-700.max-w-2xl.mb-10.leading-relaxed.font-medium> Expert Vedic astrology consultations rooted in authentic tradition. Get precise 
+                                          <div .flex.flex-col.sm:flex-row.gap-4.sm:gap-6.justify-center.lg:justify-start.w-full.px-4.sm:px-0>
+                                            <a .w-full.sm:w-auto.px-6.py-3.saffron-button.font-bold.rounded-xl.flex.items-center.justify-center.gap-2.text-base.uppercase.tracking-wider.shadow-xl> Generate Free Kundli
+                                          </a>
+                                          <a .w-full.sm:w-auto.px-6.py-3.bg-white.border-2.border-primary-red.text-primary-red.font-bold.rounded-xl.flex.items-center.justify-center.gap-2.text-base.uppercase.tracking-wider.hover:bg-primary-red/5.transition-all.shadow-md> Book Consultation
+                                          </div>
+                                        </div>
+                                        <div .flex-1.relative.w-full.max-w-md.lg:max-w-none.mx-auto.mt-8.lg:mt-0>
+                                          <div .relative.w-full.aspect-square.max-w-[500px].mx-auto>
+                                            <div .absolute.inset-0.border-4.border-primary-saffron/30.rounded-full.animate-spin-slow>
+                                            </div>
+                                            <div .absolute.inset-4.border-4.border-dashed.border-primary-gold/40.rounded-full.animate-reverse-spin>
+                                            </div>
+                                            <div .absolute.inset-0.bg-gradient-to-tr.from-primary-saffron/10.to-transparent.rounded-full.backdrop-blur-sm>
+                                            </div>
+                                            <img .absolute.inset-8.object-cover.rounded-full.shadow-2xl.border-8.border-white>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </section>
+                                    <section .w-full.bg-gradient-to-r.from-primary-red.to-primary-saffron.py-12.relative.overflow-hidden>
+                                      <div .absolute.inset-0.mandala-bg.opacity-20>
+                                      </div>
+                                      <div .max-w-7xl.mx-auto.px-4.md:px-8.relative.z-10.flex.flex-wrap.justify-around.items-center.gap-8.text-white>
+                                        <div .flex.flex-col.items-center.text-center>
+                                          <svg>
+                                          <div .text-3xl.md:text-4xl.font-serif.font-bold.mb-1> 99%
+                                            <div .font-bold.text-sm.uppercase.tracking-widest.text-primary-gold.drop-shadow-md> Accurate Predictions
+                                            </div>
+                                            <div .flex.flex-col.items-center.text-center>
+                                              <svg>
+                                              <div .text-3xl.md:text-4xl.font-serif.font-bold.mb-1> 25,000+
+                                                <div .font-bold.text-sm.uppercase.tracking-widest.text-primary-gold.drop-shadow-md> Lives Transformed
+                                                </div>
+                                                <div .flex.flex-col.items-center.text-center>
+                                                  <svg>
+                                                  <div .text-3xl.md:text-4xl.font-serif.font-bold.mb-1> 30+
+                                                    <div .font-bold.text-sm.uppercase.tracking-widest.text-primary-gold.drop-shadow-md> Years of Heritage
+                                                    </div>
+                                                    <div .flex.flex-col.items-center.text-center>
+                                                      <svg>
+                                                      <div .text-3xl.md:text-4xl.font-serif.font-bold.mb-1> 100%
+                                                        <div .font-bold.text-sm.uppercase.tracking-widest.text-primary-gold.drop-shadow-md> Client Satisfaction
+                                                        </div>
+                                                      </div>
+                                                    </section>
+                                                    <section .max-w-7xl.mx-auto.px-4.md:px-8.py-16.border-b.border-gray-100>
+                                                      <div .w-full.flex.items-center.justify-center.p-12.bg-orange-50.rounded-3xl.border.border-orange-100.min-h-[300px]>
+                                                        <svg>
+                                                      </div>
+                                                    </section>
+                                                    <section .w-full.bg-[#0a0f1c].py-16.md:py-20.relative.overflow-hidden.border-y.border-slate-800>
+                                                      <div .absolute.inset-0.opacity-30.pointer-events-none>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                        <div .absolute.bg-white.rounded-full.animate-pulse>
+                                                        </div>
+                                                      </div>
+                                                      <div .absolute.inset-0.bg-gradient-to-b.from-transparent.via-[#0a0f1c]/50.to-[#0a0f1c].z-0.pointer-events-none>
+                                                      </div>
+                                                      <div .max-w-7xl.mx-auto.px-4.md:px-8.relative.z-10>
+                                                        <div .text-center.mb-10.md:mb-16>
+                                                          <h2 .text-3xl.md:text-4xl.font-serif.font-bold.text-white.mb-4> The Cosmic Alignment
+                                                          </h2>
+                                                          <p .text-slate-400.font-medium.max-w-2xl.mx-auto.text-sm.md:text-base> The Navagraha (nine celestial bodies) move in a continuous celestial dance, thei
+                                                          </div>
+                                                          <div .relative.w-full.h-[120px].md:h-[180px].max-w-5xl.mx-auto.mt-8>
+                                                            <svg>
+                                                            <div .absolute.inset-0.w-full.h-full>
+                                                              <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-4.h-4.md:w-5.md:h-5>
+                                                                </div>
+                                                                <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                  <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Ketu
+                                                                    <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> South Node
+                                                                    </div>
+                                                                  </div>
+                                                                  <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                    <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-7.h-7.md:w-10.md:h-10>
+                                                                      <div .absolute.w-[200%].h-[30%].border-[2px].md:border-[3px].border-slate-400/60.rounded-[50%].-rotate-12.pointer-events-none>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                      <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Shani
+                                                                        <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Saturn
+                                                                        </div>
+                                                                      </div>
+                                                                      <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                        <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-5.h-5.md:w-7.md:h-7>
+                                                                        </div>
+                                                                        <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                          <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Mangala
+                                                                            <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Mars
+                                                                            </div>
+                                                                          </div>
+                                                                          <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                            <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-6.h-6.md:w-8.md:h-8>
+                                                                            </div>
+                                                                            <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                              <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Chandra
+                                                                                <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Moon
+                                                                                </div>
+                                                                              </div>
+                                                                              <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                                <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-10.h-10.md:w-14.md:h-14>
+                                                                                </div>
+                                                                                <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                                  <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Surya
+                                                                                    <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Sun
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                                    <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-4.h-4.md:w-5.md:h-5>
+                                                                                    </div>
+                                                                                    <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                                      <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Budha
+                                                                                        <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Mercury
+                                                                                        </div>
+                                                                                      </div>
+                                                                                      <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                                        <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-8.h-8.md:w-12.md:h-12>
+                                                                                        </div>
+                                                                                        <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                                          <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Brihaspati
+                                                                                            <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Jupiter
+                                                                                            </div>
+                                                                                          </div>
+                                                                                          <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                                            <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-6.h-6.md:w-9.md:h-9>
+                                                                                            </div>
+                                                                                            <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                                              <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Shukra
+                                                                                                <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> Venus
+                                                                                                </div>
+                                                                                              </div>
+                                                                                              <div .absolute.-translate-x-1/2.-translate-y-1/2.flex.flex-col.items-center.group.cursor-pointer>
+                                                                                                <div .rounded-full.flex.items-center.justify-center.relative.hover:scale-125.transition-transform.duration-300.w-4.h-4.md:w-5.md:h-5>
+                                                                                                </div>
+                                                                                                <div .absolute.top-full.mt-2.md:mt-3.opacity-0.group-hover:opacity-100.transition-opacity.flex.flex-col.items-center.pointer-events-none.z-20>
+                                                                                                  <span .text-white.text-[10px].md:text-xs.font-bold.whitespace-nowrap.bg-black/90.px-2.py-1.rounded.shadow-lg.border.border-slate-700/50> Rahu
+                                                                                                    <span .text-slate-400.text-[9px].md:text-[10px].whitespace-nowrap.mt-1> North Node
+                                                                                                    </div>
+                                                                                                  </div>
+                                                                                                </div>
+                                                                                              </div>
+                                                                                            </div>
+                                                                                          </section>
+                                                                                          <section .w-full.bg-white.py-24.border-b.border-gray-100>
+                                                                                            <div .max-w-7xl.mx-auto.px-4.md:px-8>
+                                                                                              <div .text-center.mb-16>
+                                                                                                <h2 .text-4xl.font-serif.font-bold.text-primary-red.mb-4> Explore Our Free Tools
+                                                                                                </h2>
+                                                                                                <p .text-gray-600.font-medium.max-w-2xl.mx-auto> Access our suite of advanced astrological calculators and insights, designed to 
+                                                                                                </div>
+                                                                                                <div .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8>
+                                                                                                  <a .group.flex.flex-col.items-center.text-center.bg-gray-50.p-8.rounded-3xl.border.border-gray-100.hover:border-primary-saffron/30.hover:shadow-xl.transition-all>
+                                                                                                    <div .w-20.h-20.shrink-0.bg-white.rounded-2xl.shadow-sm.border.border-orange-50.flex.items-center.justify-center.text-primary-saffron.group-hover:scale-110.group-hover:bg-primary-saffron.group-hover:text-white.transition-all.mb-6>
+                                                                                                      <svg>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                      <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2.group-hover:text-primary-red.transition-colors> Free Kundli Generator
+                                                                                                        <p .text-gray-600.font-medium.mb-4.text-sm> Generate your birth chart with divisional charts and detailed planetary position
+                                                                                                          <span .text-primary-saffron.font-bold.text-xs.uppercase.tracking-widest.flex.items-center.justify-center.gap-2> Try Now
+                                                                                                        </span>
+                                                                                                      </div>
+                                                                                                    </a>
+                                                                                                    <a .group.flex.flex-col.items-center.text-center.bg-gray-50.p-8.rounded-3xl.border.border-gray-100.hover:border-primary-saffron/30.hover:shadow-xl.transition-all>
+                                                                                                      <div .w-20.h-20.shrink-0.bg-white.rounded-2xl.shadow-sm.border.border-orange-50.flex.items-center.justify-center.text-primary-saffron.group-hover:scale-110.group-hover:bg-primary-saffron.group-hover:text-white.transition-all.mb-6>
+                                                                                                        <svg>
+                                                                                                      </div>
+                                                                                                      <div>
+                                                                                                        <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2.group-hover:text-primary-red.transition-colors> Guna Milan
+                                                                                                          <p .text-gray-600.font-medium.mb-4.text-sm> Check marital compatibility using the traditional 36-point Ashtakoota system.
+                                                                                                            <span .text-primary-saffron.font-bold.text-xs.uppercase.tracking-widest.flex.items-center.justify-center.gap-2> Try Now
+                                                                                                          </span>
+                                                                                                        </div>
+                                                                                                      </a>
+                                                                                                      <a .group.flex.flex-col.items-center.text-center.bg-gray-50.p-8.rounded-3xl.border.border-gray-100.hover:border-primary-saffron/30.hover:shadow-xl.transition-all>
+                                                                                                        <div .w-20.h-20.shrink-0.bg-white.rounded-2xl.shadow-sm.border.border-orange-50.flex.items-center.justify-center.text-primary-saffron.group-hover:scale-110.group-hover:bg-primary-saffron.group-hover:text-white.transition-all.mb-6>
+                                                                                                          <svg>
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                          <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2.group-hover:text-primary-red.transition-colors> Numerology
+                                                                                                            <p .text-gray-600.font-medium.mb-4.text-sm> Discover your Mulank, Bhagyank, and Namank based on ancient Vedic principles.
+                                                                                                              <span .text-primary-saffron.font-bold.text-xs.uppercase.tracking-widest.flex.items-center.justify-center.gap-2> Try Now
+                                                                                                            </span>
+                                                                                                          </div>
+                                                                                                        </a>
+                                                                                                        <a .group.flex.flex-col.items-center.text-center.bg-gray-50.p-8.rounded-3xl.border.border-gray-100.hover:border-primary-saffron/30.hover:shadow-xl.transition-all>
+                                                                                                          <div .w-20.h-20.shrink-0.bg-white.rounded-2xl.shadow-sm.border.border-orange-50.flex.items-center.justify-center.text-primary-saffron.group-hover:scale-110.group-hover:bg-primary-saffron.group-hover:text-white.transition-all.mb-6>
+                                                                                                            <svg>
+                                                                                                          </div>
+                                                                                                          <div>
+                                                                                                            <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2.group-hover:text-primary-red.transition-colors> Marriage Prediction
+                                                                                                              <p .text-gray-600.font-medium.mb-4.text-sm> Predict your auspicious marriage timing and analyze your 7th house for harmony.
+                                                                                                                <span .text-primary-saffron.font-bold.text-xs.uppercase.tracking-widest.flex.items-center.justify-center.gap-2> Try Now
+                                                                                                              </span>
+                                                                                                            </div>
+                                                                                                          </a>
+                                                                                                          <a .group.flex.flex-col.items-center.text-center.bg-gray-50.p-8.rounded-3xl.border.border-gray-100.hover:border-primary-saffron/30.hover:shadow-xl.transition-all>
+                                                                                                            <div .w-20.h-20.shrink-0.bg-white.rounded-2xl.shadow-sm.border.border-orange-50.flex.items-center.justify-center.text-primary-saffron.group-hover:scale-110.group-hover:bg-primary-saffron.group-hover:text-white.transition-all.mb-6>
+                                                                                                              <svg>
+                                                                                                            </div>
+                                                                                                            <div>
+                                                                                                              <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2.group-hover:text-primary-red.transition-colors> Dasha Timeline
+                                                                                                                <p .text-gray-600.font-medium.mb-4.text-sm> Explore your current Mahadasha and Antardasha periods for precise timing.
+                                                                                                                  <span .text-primary-saffron.font-bold.text-xs.uppercase.tracking-widest.flex.items-center.justify-center.gap-2> Try Now
+                                                                                                                </span>
+                                                                                                              </div>
+                                                                                                            </a>
+                                                                                                            <a .group.flex.flex-col.items-center.text-center.bg-gray-50.p-8.rounded-3xl.border.border-gray-100.hover:border-primary-saffron/30.hover:shadow-xl.transition-all>
+                                                                                                              <div .w-20.h-20.shrink-0.bg-white.rounded-2xl.shadow-sm.border.border-orange-50.flex.items-center.justify-center.text-primary-saffron.group-hover:scale-110.group-hover:bg-primary-saffron.group-hover:text-white.transition-all.mb-6>
+                                                                                                                <svg>
+                                                                                                              </div>
+                                                                                                              <div>
+                                                                                                                <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2.group-hover:text-primary-red.transition-colors> Zodiac Encyclopedia
+                                                                                                                  <p .text-gray-600.font-medium.mb-4.text-sm> Deep dive into the characteristics, ruling planets, and elements of all 12 signs
+                                                                                                                    <span .text-primary-saffron.font-bold.text-xs.uppercase.tracking-widest.flex.items-center.justify-center.gap-2> Explore
+                                                                                                                  </span>
+                                                                                                                </div>
+                                                                                                              </a>
+                                                                                                            </div>
+                                                                                                          </div>
+                                                                                                        </section>
+                                                                                                        <section .max-w-7xl.mx-auto.px-4.md:px-8.py-24>
+                                                                                                          <div .text-center.mb-16>
+                                                                                                            <h2 .text-4xl.font-serif.font-bold.text-primary-red.mb-4> Select Your Zodiac Sign
+                                                                                                            </h2>
+                                                                                                            <p .text-gray-600.font-medium.max-w-2xl.mx-auto> Discover daily insights tailored specifically for your astrological sign based o
+                                                                                                              <p .text-sm.text-primary-saffron.font-bold.mt-2> உங்கள் ராசியைத் தேர்ந்தெடுக்கவும்
+                                                                                                              </div>
+                                                                                                              <div .grid.grid-cols-2.sm:grid-cols-3.md:grid-cols-4.lg:grid-cols-6.gap-6>
+                                                                                                                <a .block.w-full>
+                                                                                                                  <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                    <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                      <svg>
+                                                                                                                    </div>
+                                                                                                                    <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Aries
+                                                                                                                      <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> மேஷம்
+                                                                                                                      </div>
+                                                                                                                    </a>
+                                                                                                                    <a .block.w-full>
+                                                                                                                      <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                        <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                          <svg>
+                                                                                                                        </div>
+                                                                                                                        <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Taurus
+                                                                                                                          <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> ரிஷபம்
+                                                                                                                          </div>
+                                                                                                                        </a>
+                                                                                                                        <a .block.w-full>
+                                                                                                                          <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                            <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                              <svg>
+                                                                                                                            </div>
+                                                                                                                            <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Gemini
+                                                                                                                              <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> மிதுனம்
+                                                                                                                              </div>
+                                                                                                                            </a>
+                                                                                                                            <a .block.w-full>
+                                                                                                                              <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                  <svg>
+                                                                                                                                </div>
+                                                                                                                                <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Cancer
+                                                                                                                                  <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> கடகம்
+                                                                                                                                  </div>
+                                                                                                                                </a>
+                                                                                                                                <a .block.w-full>
+                                                                                                                                  <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                    <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                      <svg>
+                                                                                                                                    </div>
+                                                                                                                                    <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Leo
+                                                                                                                                      <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> சிம்மம்
+                                                                                                                                      </div>
+                                                                                                                                    </a>
+                                                                                                                                    <a .block.w-full>
+                                                                                                                                      <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                        <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                          <svg>
+                                                                                                                                        </div>
+                                                                                                                                        <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Virgo
+                                                                                                                                          <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> கன்னி
+                                                                                                                                          </div>
+                                                                                                                                        </a>
+                                                                                                                                        <a .block.w-full>
+                                                                                                                                          <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                            <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                              <svg>
+                                                                                                                                            </div>
+                                                                                                                                            <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Libra
+                                                                                                                                              <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> துலாம்
+                                                                                                                                              </div>
+                                                                                                                                            </a>
+                                                                                                                                            <a .block.w-full>
+                                                                                                                                              <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                                <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                                  <svg>
+                                                                                                                                                </div>
+                                                                                                                                                <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Scorpio
+                                                                                                                                                  <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> விருச்சிகம்
+                                                                                                                                                  </div>
+                                                                                                                                                </a>
+                                                                                                                                                <a .block.w-full>
+                                                                                                                                                  <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                                    <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                                      <svg>
+                                                                                                                                                    </div>
+                                                                                                                                                    <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Sagittarius
+                                                                                                                                                      <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> தனுசு
+                                                                                                                                                      </div>
+                                                                                                                                                    </a>
+                                                                                                                                                    <a .block.w-full>
+                                                                                                                                                      <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                                        <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                                          <svg>
+                                                                                                                                                        </div>
+                                                                                                                                                        <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Capricorn
+                                                                                                                                                          <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> மகரம்
+                                                                                                                                                          </div>
+                                                                                                                                                        </a>
+                                                                                                                                                        <a .block.w-full>
+                                                                                                                                                          <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                                            <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                                              <svg>
+                                                                                                                                                            </div>
+                                                                                                                                                            <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Aquarius
+                                                                                                                                                              <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> கும்பம்
+                                                                                                                                                              </div>
+                                                                                                                                                            </a>
+                                                                                                                                                            <a .block.w-full>
+                                                                                                                                                              <div .bg-white.p-6.rounded-3xl.flex.flex-col.items-center.gap-3.border.border-gray-100.shadow-sm.hover:shadow-md.group.cursor-pointer.transition-all.h-full>
+                                                                                                                                                                <div .w-16.h-16.rounded-2xl.bg-orange-50.text-primary-saffron.group-hover:bg-primary-saffron.group-hover:text-white.transition-colors.flex.items-center.justify-center.shadow-inner.mb-2>
+                                                                                                                                                                  <svg>
+                                                                                                                                                                </div>
+                                                                                                                                                                <h3 .font-serif.font-bold.text-xl.text-primary-red.group-hover:text-primary-saffron.transition-colors> Pisces
+                                                                                                                                                                  <span .text-xs.text-gray-500.font-bold.uppercase.tracking-widest> மீனம்
+                                                                                                                                                                  </div>
+                                                                                                                                                                </a>
+                                                                                                                                                              </div>
+                                                                                                                                                            </section>
+                                                                                                                                                            <section .w-full.bg-gray-50.py-24.border-y.border-gray-100>
+                                                                                                                                                              <div .max-w-7xl.mx-auto.px-4.md:px-8>
+                                                                                                                                                                <div .text-center.mb-16>
+                                                                                                                                                                  <h2 .text-4xl.font-serif.font-bold.text-gray-900.mb-4> The Path to Clarity
+                                                                                                                                                                  </h2>
+                                                                                                                                                                  <p .text-gray-600.font-medium.max-w-2xl.mx-auto> A simple, transparent process to get profound insights into your life.
+                                                                                                                                                                  </div>
+                                                                                                                                                                  <div .grid.grid-cols-1.md:grid-cols-4.gap-8>
+                                                                                                                                                                    <div .flex.flex-col.items-center.text-center.relative>
+                                                                                                                                                                      <div .hidden.md:block.absolute.top-12.left-[60%].w-[80%].h-[2px].border-t-2.border-dashed.border-gray-300.z-0>
+                                                                                                                                                                      </div>
+                                                                                                                                                                      <div .w-24.h-24.bg-white.rounded-full.shadow-lg.border.border-gray-100.flex.items-center.justify-center.text-primary-saffron.mb-6.relative.z-10>
+                                                                                                                                                                        <svg>
+                                                                                                                                                                      </div>
+                                                                                                                                                                      <h3 .text-xl.font-bold.text-gray-900.mb-2> 1. Book Appointment
+                                                                                                                                                                        <p .text-gray-600.text-sm.font-medium> Select a convenient time slot for your detailed consultation.
+                                                                                                                                                                        </div>
+                                                                                                                                                                        <div .flex.flex-col.items-center.text-center.relative>
+                                                                                                                                                                          <div .hidden.md:block.absolute.top-12.left-[60%].w-[80%].h-[2px].border-t-2.border-dashed.border-gray-300.z-0>
+                                                                                                                                                                          </div>
+                                                                                                                                                                          <div .w-24.h-24.bg-white.rounded-full.shadow-lg.border.border-gray-100.flex.items-center.justify-center.text-primary-saffron.mb-6.relative.z-10>
+                                                                                                                                                                            <svg>
+                                                                                                                                                                          </div>
+                                                                                                                                                                          <h3 .text-xl.font-bold.text-gray-900.mb-2> 2. Provide Details
+                                                                                                                                                                            <p .text-gray-600.text-sm.font-medium> Share your exact date, time, and place of birth securely.
+                                                                                                                                                                            </div>
+                                                                                                                                                                            <div .flex.flex-col.items-center.text-center.relative>
+                                                                                                                                                                              <div .hidden.md:block.absolute.top-12.left-[60%].w-[80%].h-[2px].border-t-2.border-dashed.border-gray-300.z-0>
+                                                                                                                                                                              </div>
+                                                                                                                                                                              <div .w-24.h-24.bg-white.rounded-full.shadow-lg.border.border-gray-100.flex.items-center.justify-center.text-primary-saffron.mb-6.relative.z-10>
+                                                                                                                                                                                <svg>
+                                                                                                                                                                              </div>
+                                                                                                                                                                              <h3 .text-xl.font-bold.text-gray-900.mb-2> 3. Direct Consultation
+                                                                                                                                                                                <p .text-gray-600.text-sm.font-medium> 1-on-1 private call with Pandit Shri Govind for in-depth analysis.
+                                                                                                                                                                                </div>
+                                                                                                                                                                                <div .flex.flex-col.items-center.text-center.relative>
+                                                                                                                                                                                  <div .w-24.h-24.bg-white.rounded-full.shadow-lg.border.border-gray-100.flex.items-center.justify-center.text-primary-saffron.mb-6.relative.z-10>
+                                                                                                                                                                                    <svg>
+                                                                                                                                                                                  </div>
+                                                                                                                                                                                  <h3 .text-xl.font-bold.text-gray-900.mb-2> 4. Perform Remedies
+                                                                                                                                                                                    <p .text-gray-600.text-sm.font-medium> Follow specific, proven Vedic remedies to overcome life&#x27;s hurdles.
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                  </div>
+                                                                                                                                                                                </div>
+                                                                                                                                                                              </section>
+                                                                                                                                                                              <section .w-full.bg-primary-cream.py-24.border-b.border-primary-saffron/10>
+                                                                                                                                                                                <div .max-w-7xl.mx-auto.px-4.md:px-8>
+                                                                                                                                                                                  <div .text-center.mb-16>
+                                                                                                                                                                                    <h2 .text-4xl.font-serif.font-bold.text-primary-red.mb-4> Expert Astrology Services
+                                                                                                                                                                                    </h2>
+                                                                                                                                                                                    <p .text-gray-600.font-medium.max-w-2xl.mx-auto> Comprehensive solutions for every aspect of your life, combining traditional wis
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                    <div .grid.grid-cols-1.md:grid-cols-3.gap-8>
+                                                                                                                                                                                      <div .bg-white.p-10.rounded-3xl.border.border-gray-100.shadow-lg.hover:shadow-xl.transition-all.group>
+                                                                                                                                                                                        <div .w-16.h-16.rounded-2xl.flex.items-center.justify-center.mb-8.shadow-md.group-hover:scale-110.transition-transform.bg-blue-600>
+                                                                                                                                                                                          <svg>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                        <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2> Career &amp; Business
+                                                                                                                                                                                          <p .text-xs.font-bold.text-primary-saffron.uppercase.tracking-widest.mb-4> தொழில் வழிகாட்டுதல்
+                                                                                                                                                                                            <p .text-gray-600.font-medium.leading-relaxed> Identify periods of growth, overcome professional hurdles, and choose the right 
+                                                                                                                                                                                              <div .mt-8.pt-6.border-t.border-gray-100>
+                                                                                                                                                                                                <a .text-primary-red.font-bold.flex.items-center.gap-2.group-hover:text-primary-saffron.transition-colors> Learn More
+                                                                                                                                                                                              </a>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                          <div .bg-white.p-10.rounded-3xl.border.border-gray-100.shadow-lg.hover:shadow-xl.transition-all.group>
+                                                                                                                                                                                            <div .w-16.h-16.rounded-2xl.flex.items-center.justify-center.mb-8.shadow-md.group-hover:scale-110.transition-transform.bg-primary-red>
+                                                                                                                                                                                              <svg>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2> Marriage &amp; Dosha
+                                                                                                                                                                                              <p .text-xs.font-bold.text-primary-saffron.uppercase.tracking-widest.mb-4> திருமண பொருத்தம்
+                                                                                                                                                                                                <p .text-gray-600.font-medium.leading-relaxed> In-depth Kundli matching, Mangalik dosha check, and timing of marriage to ensure
+                                                                                                                                                                                                  <div .mt-8.pt-6.border-t.border-gray-100>
+                                                                                                                                                                                                    <a .text-primary-red.font-bold.flex.items-center.gap-2.group-hover:text-primary-saffron.transition-colors> Learn More
+                                                                                                                                                                                                  </a>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                              </div>
+                                                                                                                                                                                              <div .bg-white.p-10.rounded-3xl.border.border-gray-100.shadow-lg.hover:shadow-xl.transition-all.group>
+                                                                                                                                                                                                <div .w-16.h-16.rounded-2xl.flex.items-center.justify-center.mb-8.shadow-md.group-hover:scale-110.transition-transform.bg-green-600>
+                                                                                                                                                                                                  <svg>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <h3 .text-2xl.font-serif.font-bold.text-gray-900.mb-2> Health &amp; Remedies
+                                                                                                                                                                                                  <p .text-xs.font-bold.text-primary-saffron.uppercase.tracking-widest.mb-4> ஆரோக்கியம் மற்றும் பரிகாரம்
+                                                                                                                                                                                                    <p .text-gray-600.font-medium.leading-relaxed> Understand planetary influences on health and receive powerful Vedic remedies, g
+                                                                                                                                                                                                      <div .mt-8.pt-6.border-t.border-gray-100>
+                                                                                                                                                                                                        <a .text-primary-red.font-bold.flex.items-center.gap-2.group-hover:text-primary-saffron.transition-colors> Learn More
+                                                                                                                                                                                                      </a>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                              </div>
+                                                                                                                                                                                            </section>
+                                                                                                                                                                                            <section .max-w-7xl.mx-auto.px-4.md:px-8.py-24>
+                                                                                                                                                                                              <div .text-center.mb-16>
+                                                                                                                                                                                                <h2 .text-4xl.font-serif.font-bold.text-primary-red.mb-4> Proven Results
+                                                                                                                                                                                                </h2>
+                                                                                                                                                                                                <p .text-gray-600.font-medium.max-w-2xl.mx-auto> Read what our clients have to say about the transformative power of Pandit Shri 
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8>
+                                                                                                                                                                                                  <div .bg-white.p-8.rounded-3xl.border.border-gray-100.shadow-sm.relative>
+                                                                                                                                                                                                    <svg>
+                                                                                                                                                                                                    <div .flex.gap-1.mb-6.text-primary-gold>
+                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    <p .text-gray-700.font-medium.italic.mb-8.relative.z-10> &quot;Panditji accurately predicted my career change. His remedies worked wonder
+                                                                                                                                                                                                      <div .flex.items-center.gap-3.border-t.border-gray-100.pt-6>
+                                                                                                                                                                                                        <div .w-10.h-10.bg-primary-saffron/10.rounded-full.flex.items-center.justify-center.text-primary-red.font-bold> K
+                                                                                                                                                                                                          <div>
+                                                                                                                                                                                                            <h4 .font-bold.text-gray-900> Karthik R.
+                                                                                                                                                                                                              <p .text-xs.text-gray-500.font-bold.uppercase.tracking-wider> Chennai
+                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                          <div .bg-white.p-8.rounded-3xl.border.border-gray-100.shadow-sm.relative>
+                                                                                                                                                                                                            <svg>
+                                                                                                                                                                                                            <div .flex.gap-1.mb-6.text-primary-gold>
+                                                                                                                                                                                                              <svg>
+                                                                                                                                                                                                              <svg>
+                                                                                                                                                                                                              <svg>
+                                                                                                                                                                                                              <svg>
+                                                                                                                                                                                                              <svg>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                            <p .text-gray-700.font-medium.italic.mb-8.relative.z-10> &quot;We were facing huge delays in our daughter&#x27;s marriage. After performi
+                                                                                                                                                                                                              <div .flex.items-center.gap-3.border-t.border-gray-100.pt-6>
+                                                                                                                                                                                                                <div .w-10.h-10.bg-primary-saffron/10.rounded-full.flex.items-center.justify-center.text-primary-red.font-bold> P
+                                                                                                                                                                                                                  <div>
+                                                                                                                                                                                                                    <h4 .font-bold.text-gray-900> Priya S.
+                                                                                                                                                                                                                      <p .text-xs.text-gray-500.font-bold.uppercase.tracking-wider> Coimbatore
+                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                  <div .bg-white.p-8.rounded-3xl.border.border-gray-100.shadow-sm.relative>
+                                                                                                                                                                                                                    <svg>
+                                                                                                                                                                                                                    <div .flex.gap-1.mb-6.text-primary-gold>
+                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                    <p .text-gray-700.font-medium.italic.mb-8.relative.z-10> &quot;His business astrology reading saved me from a massive loss. The depth of 
+                                                                                                                                                                                                                      <div .flex.items-center.gap-3.border-t.border-gray-100.pt-6>
+                                                                                                                                                                                                                        <div .w-10.h-10.bg-primary-saffron/10.rounded-full.flex.items-center.justify-center.text-primary-red.font-bold> A
+                                                                                                                                                                                                                          <div>
+                                                                                                                                                                                                                            <h4 .font-bold.text-gray-900> Anand M.
+                                                                                                                                                                                                                              <p .text-xs.text-gray-500.font-bold.uppercase.tracking-wider> Bangalore
+                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                      </section>
+                                                                                                                                                                                                                      <section .w-full.bg-white.py-24.border-t.border-gray-100>
+                                                                                                                                                                                                                        <div .max-w-4xl.mx-auto.px-4.md:px-8>
+                                                                                                                                                                                                                          <div .text-center.mb-16>
+                                                                                                                                                                                                                            <h2 .text-4xl.font-serif.font-bold.text-gray-900.mb-4> Frequently Asked Questions
+                                                                                                                                                                                                                            </h2>
+                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                          <div .space-y-6>
+                                                                                                                                                                                                                            <div .bg-gray-50.p-6.md:p-8.rounded-3xl.border.border-gray-100>
+                                                                                                                                                                                                                              <h4 .text-xl.font-bold.text-primary-red.mb-3.flex.items-start.gap-3>
+                                                                                                                                                                                                                                <span .text-primary-saffron> Q. How accurate are the predictions?
+                                                                                                                                                                                                                                  <p .text-gray-600.font-medium.leading-relaxed.pl-8> Astrology is a guiding science based on precise astronomical calculations of pla
+                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                  <div .bg-gray-50.p-6.md:p-8.rounded-3xl.border.border-gray-100>
+                                                                                                                                                                                                                                    <h4 .text-xl.font-bold.text-primary-red.mb-3.flex.items-start.gap-3>
+                                                                                                                                                                                                                                      <span .text-primary-saffron> Q. Is the consultation completely confidential?
+                                                                                                                                                                                                                                        <p .text-gray-600.font-medium.leading-relaxed.pl-8> Absolutely. 100% confidentiality is a core pillar of our practice. Your personal
+                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                        <div .bg-gray-50.p-6.md:p-8.rounded-3xl.border.border-gray-100>
+                                                                                                                                                                                                                                          <h4 .text-xl.font-bold.text-primary-red.mb-3.flex.items-start.gap-3>
+                                                                                                                                                                                                                                            <span .text-primary-saffron> Q. Can remedies (Pariharam) change destiny?
+                                                                                                                                                                                                                                              <p .text-gray-600.font-medium.leading-relaxed.pl-8> Remedies do not alter your fundamental karma, but they significantly reduce the 
+                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                        </section>
+                                                                                                                                                                                                                                        <section .max-w-5xl.mx-auto.px-4.md:px-8.mb-12>
+                                                                                                                                                                                                                                          <div .w-full.relative.py-20.px-8.rounded-[3rem].overflow-hidden.bg-primary-dark.text-white.text-center.shadow-2xl>
+                                                                                                                                                                                                                                            <div .absolute.inset-0.mandala-bg.opacity-10>
+                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                            <div .absolute.inset-0.bg-gradient-to-b.from-transparent.to-black/50>
+                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                            <div .relative.z-10.flex.flex-col.items-center>
+                                                                                                                                                                                                                                              <h2 .text-4xl.font-serif.font-bold.mb-6.text-white> Do Not Leave Your Future to Chance
+                                                                                                                                                                                                                                                <p .text-gray-300.font-medium.max-w-xl.mx-auto.mb-10.text-lg> Get an accurate reading from Pandit Shri Govind and take control of your destiny
+                                                                                                                                                                                                                                                  <div .flex.flex-col.sm:flex-row.gap-4>
+                                                                                                                                                                                                                                                    <a .px-10.py-4.saffron-button.font-bold.rounded-xl.text-lg.uppercase.tracking-wider> Calculate Kundli
+                                                                                                                                                                                                                                                      <a .px-10.py-4.bg-white/10.hover:bg-white/20.border.border-white/30.text-white.font-bold.rounded-xl.text-lg.uppercase.tracking-wider.transition-colors> Contact Panditji
+                                                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                                                      <div .mt-8.flex.items-center.justify-center.gap-6.text-sm.text-gray-400.font-medium>
+                                                                                                                                                                                                                                                        <span .flex.items-center.gap-2>
+                                                                                                                                                                                                                                                          <svg> Secure
+                                                                                                                                                                                                                                                          <span .flex.items-center.gap-2>
+                                                                                                                                                                                                                                                            <svg> Private
+                                                                                                                                                                                                                                                            <span .flex.items-center.gap-2>
+                                                                                                                                                                                                                                                              <svg> Accurate
+                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                      </section>
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                    <!--$-->
+                                                                                                                                                                                                                                                    <!--/$-->
+                                                                                                                                                                                                                                                  </main>
+                                                                                                                                                                                                                                                  <footer .relative.mt-20.border-t.border-primary-saffron/20.pt-20.pb-10.overflow-hidden.bg-white>
+                                                                                                                                                                                                                                                    <div .absolute.inset-0.opacity-[0.03].pointer-events-none.mandala-bg>
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                    <div .max-w-7xl.mx-auto.px-4.md:px-8.relative.z-10>
+                                                                                                                                                                                                                                                      <div .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-12>
+                                                                                                                                                                                                                                                        <div .flex.flex-col.gap-6>
+                                                                                                                                                                                                                                                          <a .flex.items-center.gap-2.group>
+                                                                                                                                                                                                                                                            <svg>
+                                                                                                                                                                                                                                                            <div .flex.flex-col>
+                                                                                                                                                                                                                                                              <span .font-serif.text-2xl.font-bold.text-primary-red.tracking-tight.leading-none> Shri Govind
+                                                                                                                                                                                                                                                                <span .font-sans.text-[10px].font-bold.text-primary-saffron.uppercase.tracking-widest.leading-none.mt-1> Vedic Astrology
+                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                              </a>
+                                                                                                                                                                                                                                                              <p .text-gray-600.text-sm.leading-relaxed.font-medium> Over 30 years of experience delivering proven results. Accurate Vedic astrology,
+                                                                                                                                                                                                                                                                <div .flex.items-center.gap-2>
+                                                                                                                                                                                                                                                                  <svg>
+                                                                                                                                                                                                                                                                  <span .text-xs.font-bold.text-gray-700.uppercase.tracking-widest> 100% Confidential
+                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                  <div .flex.items-center.gap-4.mt-2>
+                                                                                                                                                                                                                                                                    <a .p-2.bg-primary-saffron/10.rounded-full.text-primary-red.hover:bg-primary-saffron.hover:text-white.transition-all.shadow-sm>
+                                                                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                                                                                    <a .p-2.bg-primary-saffron/10.rounded-full.text-primary-red.hover:bg-primary-saffron.hover:text-white.transition-all.shadow-sm>
+                                                                                                                                                                                                                                                                      <svg>
+                                                                                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                <div>
+                                                                                                                                                                                                                                                                  <h3 .font-serif.text-xl.font-bold.text-primary-red.mb-6.uppercase.tracking-widest.border-b.border-primary-saffron/20.pb-2.inline-block> Quick Links
+                                                                                                                                                                                                                                                                    <ul .flex.flex-col.gap-4.text-gray-600.font-medium.text-sm>
+                                                                                                                                                                                                                                                                      <li>
+                                                                                                                                                                                                                                                                        <a .hover:text-primary-saffron.transition-colors> Home
+                                                                                                                                                                                                                                                                        </li>
+                                                                                                                                                                                                                                                                        <li>
+                                                                                                                                                                                                                                                                          <a .hover:text-primary-saffron.transition-colors> Free Kundli
+                                                                                                                                                                                                                                                                          </li>
+                                                                                                                                                                                                                                                                          <li>
+                                                                                                                                                                                                                                                                            <a .hover:text-primary-saffron.transition-colors> Marriage Prediction
+                                                                                                                                                                                                                                                                            </li>
+                                                                                                                                                                                                                                                                            <li>
+                                                                                                                                                                                                                                                                              <a .hover:text-primary-saffron.transition-colors> Vimshottari Dasha
+                                                                                                                                                                                                                                                                              </li>
+                                                                                                                                                                                                                                                                              <li>
+                                                                                                                                                                                                                                                                                <a .hover:text-primary-saffron.transition-colors> Consultation Services
+                                                                                                                                                                                                                                                                                </li>
+                                                                                                                                                                                                                                                                                <li>
+                                                                                                                                                                                                                                                                                  <a .hover:text-primary-saffron.transition-colors> About Panditji
+                                                                                                                                                                                                                                                                                  </li>
+                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                              <div>
+                                                                                                                                                                                                                                                                                <h3 .font-serif.text-xl.font-bold.text-primary-red.mb-6.uppercase.tracking-widest.border-b.border-primary-saffron/20.pb-2.inline-block> Expertise
+                                                                                                                                                                                                                                                                                  <ul .flex.flex-col.gap-4.text-gray-600.font-medium.text-sm>
+                                                                                                                                                                                                                                                                                    <li>
+                                                                                                                                                                                                                                                                                      <a .hover:text-primary-saffron.transition-colors> Marriage &amp; Relationship
+                                                                                                                                                                                                                                                                                      </li>
+                                                                                                                                                                                                                                                                                      <li>
+                                                                                                                                                                                                                                                                                        <a .hover:text-primary-saffron.transition-colors> Career &amp; Wealth Analysis
+                                                                                                                                                                                                                                                                                        </li>
+                                                                                                                                                                                                                                                                                        <li>
+                                                                                                                                                                                                                                                                                          <a .hover:text-primary-saffron.transition-colors> Health &amp; Dosha Nivarana
+                                                                                                                                                                                                                                                                                          </li>
+                                                                                                                                                                                                                                                                                          <li>
+                                                                                                                                                                                                                                                                                            <a .hover:text-primary-saffron.transition-colors> Muhurat Selection
+                                                                                                                                                                                                                                                                                            </li>
+                                                                                                                                                                                                                                                                                          </ul>
+                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                        <div>
+                                                                                                                                                                                                                                                                                          <h3 .font-serif.text-xl.font-bold.text-primary-red.mb-6.uppercase.tracking-widest.border-b.border-primary-saffron/20.pb-2.inline-block> Contact Us
+                                                                                                                                                                                                                                                                                            <ul .flex.flex-col.gap-6.text-gray-600.font-medium.text-sm>
+                                                                                                                                                                                                                                                                                              <li .flex.items-start.gap-3>
+                                                                                                                                                                                                                                                                                                <svg>
+                                                                                                                                                                                                                                                                                                <span> Kumbakonam &amp; Chennai,Tamil Nadu, India
+                                                                                                                                                                                                                                                                                                </li>
+                                                                                                                                                                                                                                                                                                <li .flex.items-center.gap-3>
+                                                                                                                                                                                                                                                                                                  <svg>
+                                                                                                                                                                                                                                                                                                  <span> +91 91234 56789
+                                                                                                                                                                                                                                                                                                  </li>
+                                                                                                                                                                                                                                                                                                  <li .flex.items-center.gap-3>
+                                                                                                                                                                                                                                                                                                    <svg>
+                                                                                                                                                                                                                                                                                                    <span> consult@shrigovindastro.com
+                                                                                                                                                                                                                                                                                                    </li>
+                                                                                                                                                                                                                                                                                                  </ul>
+                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                              <div .mt-16.pt-8.border-t.border-primary-saffron/10.flex.flex-col.md:flex-row.justify-between.items-center.gap-4>
+                                                                                                                                                                                                                                                                                                <p .text-gray-500.font-medium.text-xs.text-center.md:text-left> © 2026 Shri Govind Astro. All Rights Reserved.
+                                                                                                                                                                                                                                                                                                <span .mx-2.hidden.md:inline> |ஜோதிடம் மற்றும் ஜாதகம்
+                                                                                                                                                                                                                                                                                                  <div .flex.gap-6.text-gray-500.font-medium.text-xs>
+                                                                                                                                                                                                                                                                                                    <a .hover:text-primary-saffron> Privacy Policy
+                                                                                                                                                                                                                                                                                                      <a .hover:text-primary-saffron> Terms of Service
+                                                                                                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                </footer>
+                                                                                                                                                                                                                                                                                              </div>
