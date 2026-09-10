@@ -412,6 +412,89 @@ function neechaBhanga(ctx: Ctx): DetectedYoga[] {
 
 // --- entry point ------------------------------------------------------------
 
+/**
+ * Yogas found in a divisional chart rather than the rasi chart.
+ *
+ * A varga has signs and house positions but no degrees — the divisional
+ * mapping collapses a 30-degree sign onto a whole varga sign. So detectors
+ * that need a degree (Pancha Mahapurusha via exaltation degree, Neecha Bhanga,
+ * combustion) cannot run there and are excluded rather than approximated.
+ */
+export interface VargaYogas {
+  varga: string;
+  vargaName: string;
+  ascendant: string;
+  yogas: DetectedYoga[];
+}
+
+/** Detectors that only need sign positions, so are valid in a varga. */
+const SIGN_ONLY_DETECTORS = [
+  "GAJA_KESARI", "BUDHA_ADITYA", "CHANDRA_MANGALA", "KEMADRUMA",
+  "DHANA_2_11", "KALA_SARPA", "ADHI", "PARIVARTANA", "RAJA", "VIPAREETA",
+  "MAHAPURUSHA",
+];
+
+function isSignOnly(id: string): boolean {
+  return SIGN_ONLY_DETECTORS.some((prefix) => id.startsWith(prefix));
+}
+
+/**
+ * Build pseudo PlanetDetail records for a divisional chart. Degrees are set to
+ * NaN deliberately: any detector that reads a degree will produce a falsy
+ * comparison rather than a plausible-looking wrong answer.
+ */
+function vargaPlanets(houses: { houseNumber: number; sign: string; planets: string[] }[]): PlanetDetail[] {
+  const out: PlanetDetail[] = [];
+  for (const h of houses) {
+    for (const name of h.planets) {
+      out.push({
+        name,
+        longitude: idx(h.sign) * 30,
+        rashi: h.sign,
+        degreeInRashi: NaN,
+        formatted: "",
+        rashiLord: RASHI_LORDS[idx(h.sign)],
+        nakshatra: "",
+        nakshatraLord: "",
+        nakshatraSubLord: "",
+        pada: 0,
+        isRetro: false,
+        isCombust: false,
+        dignity: "normal",
+      });
+    }
+  }
+  return out;
+}
+
+export function detectYogasInVargas(
+  divisionalCharts: Record<string, { id: string; name: string; ascendant: string; houses: { houseNumber: number; sign: string; planets: string[] }[] }>
+): VargaYogas[] {
+  const out: VargaYogas[] = [];
+
+  for (const [id, dc] of Object.entries(divisionalCharts)) {
+    if (id === "D1") continue; // the rasi chart is handled by detectYogas
+    const planets = vargaPlanets(dc.houses);
+    if (planets.length === 0) continue;
+
+    const found = detectYogas(planets, dc.ascendant)
+      .filter((y) => isSignOnly(y.id))
+      .map((y) => ({
+        ...y,
+        id: `${id}_${y.id}`,
+        name: `${y.name} in ${id}`,
+        basis: `${y.basis} Detected in the ${id} (${dc.name}) chart, where it applies to that varga's significations rather than the whole life.`,
+        // A varga yoga is a supporting indication, not equal to a rasi yoga.
+        strength: +(y.strength * 0.6).toFixed(2),
+      }));
+
+    if (found.length) {
+      out.push({ varga: id, vargaName: dc.name, ascendant: dc.ascendant, yogas: found });
+    }
+  }
+  return out;
+}
+
 export function detectYogas(planets: PlanetDetail[], ascSign: string): DetectedYoga[] {
   const ctx = buildCtx(planets, ascSign);
   const found: (DetectedYoga | null)[] = [

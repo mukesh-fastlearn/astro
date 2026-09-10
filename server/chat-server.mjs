@@ -14,6 +14,9 @@
  */
 
 import { createServer } from "node:http";
+import { readFileSync, existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const PORT = Number(process.env.PORT || 8787);
 const BIND = process.env.BIND || "127.0.0.1";
@@ -23,6 +26,58 @@ const KEY = process.env.VERTEX_API_KEY || "";
 if (!BASE || !KEY) {
   console.error("FATAL: VERTEX_BASE_URL and VERTEX_API_KEY must be set.");
   process.exit(1);
+}
+
+// --- RAG index ---------------------------------------------------------------
+// Passage vectors are embedded at build time and stored pre-normalised, so a
+// query costs one embedding call plus a dot product per passage.
+const HERE = dirname(fileURLToPath(import.meta.url));
+const INDEX_PATH = resolve(HERE, "rag-index.json");
+const EMBED_MODEL = process.env.EMBED_MODEL || "text-embedding-005";
+const RAG_TOP_K = Number(process.env.RAG_TOP_K || 6);
+const RAG_MIN_SCORE = Number(process.env.RAG_MIN_SCORE || 0.35);
+
+let ragIndex = null;
+if (existsSync(INDEX_PATH)) {
+  try {
+    ragIndex = JSON.parse(readFileSync(INDEX_PATH, "utf8"));
+    console.log(`rag: ${ragIndex.passages.length} passages, ${ragIndex.dimensions}d, model ${ragIndex.model}`);
+  } catch (e) {
+    console.error("rag: index unreadable, retrieval disabled -", e.message);
+  }
+} else {
+  console.warn("rag: no index found, retrieval disabled");
+}
+
+async function embedQuery(text) {
+  const res = await fetch(`${BASE}/raw`, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-api-key": KEY },
+    body: JSON.stringify({
+      model: EMBED_MODEL,
+      method: "predict",
+      body: { instances: [{ content: text }] },
+    }),
+  });
+  if (!res.ok) throw new Error(`embed ${res.status}`);
+  const data = await res.json();
+  const v = data?.predictions?.[0]?.embeddings?.values;
+  if (!Array.isArray(v)) throw new Error("no embedding returned");
+  const mag = Math.hypot(...v);
+  return mag === 0 ? v : v.map((x) => x / mag);
+}
+
+/** Cosine similarity, reduced to a dot product since both sides are unit. */
+function searchCorpus(queryVec) {
+  if (!ragIndex) return [];
+  const scored = [];
+  for (const p of ragIndex.passages) {
+    let dot = 0;
+    for (let i = 0; i < queryVec.length; i++) dot += queryVec[i] * p.vector[i];
+    if (dot >= RAG_MIN_SCORE) scored.push({ ...p, score: dot });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, RAG_TOP_K);
 }
 
 // --- limits -----------------------------------------------------------------
@@ -81,7 +136,7 @@ Hard rules:
 - Lal Kitab uses fixed houses (1st house is always Aries), so its placements
   legitimately differ from the Parashari chart. Explain that if it comes up.`;
 
-function buildPrompt(chart, messages, knowledge) {
+function buildPrompt(chart, messages, knowledge, retrieved) {
   const convo = messages
     .slice(-MAX_HISTORY)
     .map((m) => `${m.role === "assistant" ? "Astrologer" : "User"}: ${m.content}`)
@@ -100,10 +155,24 @@ function buildPrompt(chart, messages, knowledge) {
         ].join("\n")
       : "";
 
+  const rag =
+    Array.isArray(retrieved) && retrieved.length
+      ? [
+          "",
+          "=== RETRIEVED REFERENCE (semantic search over the knowledge corpus) ===",
+          "Use these only where they bear on the question. Each is tagged with its",
+          "basis; 'traditional-association' is recorded tradition, not established fact.",
+          ...retrieved.map(
+            (r) => `[${r.source} | ${r.basis} | relevance ${r.score.toFixed(2)}] ${r.text}`
+          ),
+        ].join("\n")
+      : "";
+
   return [
     "=== CHART DATA (authoritative, computed) ===",
     JSON.stringify(chart, null, 1),
     kb,
+    rag,
     "",
     "=== CONVERSATION ===",
     convo,
@@ -177,7 +246,13 @@ const server = createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
 
   if (url.pathname === "/api/health") {
-    return send(res, 200, { ok: true, service: "astro-chat" });
+    return send(res, 200, {
+      ok: true,
+      service: "astro-chat",
+      rag: ragIndex
+        ? { passages: ragIndex.passages.length, dimensions: ragIndex.dimensions, model: ragIndex.model }
+        : null,
+    });
   }
 
   if (url.pathname !== "/api/chat") return send(res, 404, { error: "not found" });
@@ -216,7 +291,18 @@ const server = createServer(async (req, res) => {
   }
 
   try {
-    const reply = await callGateway(buildPrompt(chart, messages, payload.knowledge));
+    // Semantic retrieval. A failure here degrades the answer but must not
+    // fail the request — the chart data alone is still a usable prompt.
+    let retrieved = [];
+    if (ragIndex) {
+      try {
+        retrieved = searchCorpus(await embedQuery(last.content));
+      } catch (e) {
+        console.warn("[rag]", e.message);
+      }
+    }
+
+    const reply = await callGateway(buildPrompt(chart, messages, payload.knowledge, retrieved));
     if (!reply) return send(res, 502, { error: "The astrologer had nothing to say. Try rephrasing." });
     return send(res, 200, { reply });
   } catch (err) {

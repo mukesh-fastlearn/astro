@@ -6,7 +6,7 @@
 
 import { BirthChart } from "./kundli";
 import { computeAspects, computeDignities, computeRelationships, aspectedHouses, AspectLink, PlanetDignity, RelationshipPair } from "./aspects";
-import { detectYogas, DetectedYoga } from "./yogas";
+import { detectYogas, detectYogasInVargas, DetectedYoga, VargaYogas } from "./yogas";
 import { computeAshtakavarga, sarvaByHouse, AshtakavargaResult } from "./ashtakavarga";
 import { computeCharaKarakas, computeArudhaPadas, CharaKaraka, ArudhaPada } from "./jaimini";
 import { computeStrength, StrengthResult } from "./strength";
@@ -38,6 +38,8 @@ export interface ChartAnalysis {
   aspectedHouses: Record<string, number[]>;
   houses: HouseAnalysis[];
   yogas: DetectedYoga[];
+  /** Sign-only yogas found in the divisional charts. */
+  vargaYogas: VargaYogas[];
   ashtakavarga: AshtakavargaResult;
   sarvaByHouse: { house: number; sign: string; bindus: number }[];
   strength: StrengthResult;
@@ -135,6 +137,8 @@ export function analyseChart(
   const aspects = computeAspects(planets);
   const aspHouses = aspectedHouses(planets, ascSign);
   const yogas = detectYogas(planets, ascSign);
+  let vargaYogas: VargaYogas[] = [];
+  try { vargaYogas = detectYogasInVargas(chart.divisionalCharts); } catch { /* optional layer */ }
   const ashtakavarga = computeAshtakavarga(planets);
   const savHouses = sarvaByHouse(ashtakavarga.sarva, ascSign);
   const strength = computeStrength(planets);
@@ -212,6 +216,7 @@ export function analyseChart(
     aspectedHouses: aspHouses,
     houses,
     yogas,
+    vargaYogas,
     ashtakavarga,
     sarvaByHouse: savHouses,
     strength,

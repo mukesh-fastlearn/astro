@@ -18,6 +18,7 @@
 
 import { ZODIAC_SIGNS } from "./constants";
 import { PlanetDetail } from "./kundli";
+import { readingFor, verifyHouseReadings } from "./lalkitab-houses";
 
 export interface LalKitabPlacement {
   planet: string;
@@ -43,6 +44,9 @@ export interface LalKitabReading {
   placements: LalKitabPlacement[];
   upay: LalKitabUpay[];
   emptyHouses: number[];
+  /** Per planet-in-house readings, all 108 combinations available. */
+  houseReadings: { planet: string; house: number; effect: string; measures: string[]; avoid: string[] }[];
+  tableCheck: { ok: boolean; count: number; missing: string[] };
   disclaimer: string;
 }
 
@@ -182,13 +186,22 @@ export function computeLalKitab(planets: PlanetDetail[]): LalKitabReading {
     }
   }
 
+  // Planet-in-house specifics, now complete for all 9 x 12 pairs.
+  const houseReadings = placements
+    .map((pl) => readingFor(pl.planet, pl.house))
+    .filter((r): r is NonNullable<typeof r> => !!r);
+
   const upay: LalKitabUpay[] = real.map((p) => {
     const kb = LAL_KITAB_UPAY[p.name];
+    const placed = placements.find((x) => x.planet === p.name);
+    const specific = placed ? readingFor(p.name, placed.house) : undefined;
     return {
       planet: p.name,
-      measures: kb ? kb.measures : [],
-      avoid: kb ? kb.avoid : [],
-      scope: "general" as const,
+      ...(placed ? { house: placed.house } : {}),
+      // House-specific measures first — they are the more precise prescription.
+      measures: [...(specific ? specific.measures : []), ...(kb ? kb.measures : [])],
+      avoid: [...(specific ? specific.avoid : []), ...(kb ? kb.avoid : [])],
+      scope: (specific ? "house-specific" : "general") as LalKitabUpay["scope"],
     };
   });
 
@@ -200,6 +213,8 @@ export function computeLalKitab(planets: PlanetDetail[]): LalKitabReading {
     placements,
     upay,
     emptyHouses,
+    houseReadings,
+    tableCheck: verifyHouseReadings(),
     disclaimer: DISCLAIMER,
   };
 }

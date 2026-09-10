@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BirthChart } from "@/lib/astrology/kundli";
 import { DIVISIONAL_CHARTS } from "@/lib/astrology/constants";
+import NorthIndianChart from "@/components/NorthIndianChart";
 
 /** What each varga is traditionally read for. */
 const PURPOSE: Record<string, string> = {
@@ -37,6 +38,7 @@ export default function VargaExplorer({
   render: (id: string) => React.ReactNode;
 }) {
   const [active, setActive] = useState("D1");
+  const [style, setStyle] = useState<"south" | "north">("south");
   const meta = DIVISIONAL_CHARTS.find((c) => c.id === active);
   const dc = chart.divisionalCharts[active];
 
@@ -51,12 +53,29 @@ export default function VargaExplorer({
             All {DIVISIONAL_CHARTS.length} vargas from the same birth moment.
           </p>
         </div>
-        {dc && (
-          <div className="text-right">
-            <div className="text-sm font-bold text-gray-900">{meta?.name}</div>
-            <div className="text-xs text-gray-500">Lagna: {dc.ascendant}</div>
+        <div className="flex items-center gap-4">
+          {dc && (
+            <div className="text-right">
+              <div className="text-sm font-bold text-gray-900">{meta?.name}</div>
+              <div className="text-xs text-gray-500">Lagna: {dc.ascendant}</div>
+            </div>
+          )}
+          <div className="flex rounded-lg overflow-hidden border border-gray-200 shrink-0">
+            {(["south", "north"] as const).map((s) => (
+              <button
+                key={s}
+                onClick={() => setStyle(s)}
+                className={
+                  style === s
+                    ? "px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-primary-red text-white"
+                    : "px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-white text-gray-600 hover:text-primary-red"
+                }
+              >
+                {s}
+              </button>
+            ))}
           </div>
-        )}
+        </div>
       </div>
 
       {/* Scrollable tab strip — 20 vargas will not fit on a phone otherwise. */}
@@ -85,7 +104,15 @@ export default function VargaExplorer({
         </p>
       )}
 
-      {render(active)}
+      {style === "south"
+        ? render(active)
+        : dc && <NorthIndianChart houses={dc.houses} centerLabel={active} />}
+
+      <p className="mt-4 text-center text-[11px] text-gray-400">
+        {style === "south"
+          ? "South Indian style — signs are fixed in the grid, the ascendant is marked."
+          : "North Indian style — houses are fixed, the number in each compartment is the sign."}
+      </p>
     </div>
   );
 }

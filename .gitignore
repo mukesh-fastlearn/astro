@@ -26,3 +26,7 @@ Thumbs.db
 VERTEX-GATEWAY-CREDENTIALS.txt
 *CREDENTIALS*.txt
 credentials.json
+
+# RAG index is 3.6MB of build output - regenerate with scripts/build-rag-index.ts
+server/rag-index.json
+server/.rag-checkpoint.json
