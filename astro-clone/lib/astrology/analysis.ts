@@ -10,6 +10,7 @@ import { detectYogas, DetectedYoga } from "./yogas";
 import { computeAshtakavarga, sarvaByHouse, AshtakavargaResult } from "./ashtakavarga";
 import { computeCharaKarakas, computeArudhaPadas, CharaKaraka, ArudhaPada } from "./jaimini";
 import { computeStrength, StrengthResult } from "./strength";
+import { computeShadbala, ShadbalaResult } from "./shadbala";
 import { computeTransits, computeSadeSati, computeDhaiya, TransitPosition, SadeSatiState, DhaiyaState } from "./transits";
 import { computeLalKitab, LalKitabReading } from "./lalkitab";
 import { recommendRemedies, RemedyRecommendation, HOUSE_SIGNIFICATIONS } from "./remedies";
@@ -52,6 +53,8 @@ export interface ChartAnalysis {
   western: WesternChartLayer | null;
   returns: PlanetaryReturn[];
   muhurta: MuhurtaDay | null;
+  /** Complete six-bala Shadbala; requires the birth place for rise/set. */
+  shadbala: ShadbalaResult | null;
 }
 
 const inclusive = (from: number, to: number) => ((to - from + 12) % 12) + 1;
@@ -189,8 +192,12 @@ export function analyseChart(
   try { returns = computeReturns(chart, { from: at }); } catch { /* optional layer */ }
 
   let muhurta: MuhurtaDay | null = null;
+  let shadbala: ShadbalaResult | null = null;
   if (place) {
     try { muhurta = computeMuhurta(at, place.latitude, place.longitude); } catch { /* optional layer */ }
+    try {
+      shadbala = computeShadbala(planets, chart.birthDate, place.latitude, place.longitude);
+    } catch { /* optional layer */ }
   }
 
   const currentDashaLord = activeDashaLord(chart, at);
@@ -220,5 +227,6 @@ export function analyseChart(
     western,
     returns,
     muhurta,
+    shadbala,
   };
 }

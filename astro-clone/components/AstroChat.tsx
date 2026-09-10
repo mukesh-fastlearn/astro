@@ -21,9 +21,11 @@ const SUGGESTIONS = [
 export default function AstroChat({
   chart,
   meta,
+  place,
 }: {
   chart: BirthChart;
   meta?: ChartContext["meta"];
+  place?: { latitude: number; longitude: number };
 }) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
@@ -50,7 +52,7 @@ export default function AstroChat({
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          chart: buildChartContext(chart, meta),
+          chart: buildChartContext(chart, meta, new Date(), place),
           messages: next,
           // Structured retrieval over the knowledge graph, scoped to this question.
           knowledge: retrieve(question, 40),

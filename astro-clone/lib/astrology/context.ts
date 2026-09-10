@@ -46,6 +46,12 @@ export interface ChartContext {
       ranking: { planet: string; rank: number; partialTotal: number }[];
       included: string[]; omitted: string[]; disclaimer: string;
     };
+    /** Complete six-bala Shadbala. Present only when the birth place is known. */
+    shadbala?: {
+      complete: true;
+      rows: { planet: string; totalRupas: number; requiredRupas: number; ratio: number; meetsMinimum: boolean; rank: number; cheshtaState: string }[];
+      method: string[];
+    };
     sadeSati: { active: boolean; phaseName: string; saturnSign: string; approxStart?: string; approxEnd?: string; note: string };
     dhaiya: { active: boolean; kind?: string; note: string };
     transits: { planet: string; sign: string; retrograde: boolean; houseFromLagna: number; houseFromMoon: number }[];
@@ -112,7 +118,8 @@ function slimHouses(houses: BirthChart["houses"]) {
 export function buildChartContext(
   chart: BirthChart,
   meta?: ChartContext["meta"],
-  now: Date = new Date()
+  now: Date = new Date(),
+  place?: { latitude: number; longitude: number }
 ): ChartContext {
   const d9 = chart.divisionalCharts["D9"];
   const d10 = chart.divisionalCharts["D10"];
@@ -131,7 +138,7 @@ export function buildChartContext(
       ? { ascendant: d10.ascendant, houses: slimHouses(d10.houses) }
       : { ascendant: "", houses: [] },
     currentDasha: activeDashaChain(chart.dashas, now),
-    analysis: buildAnalysisContext(chart, now),
+    analysis: buildAnalysisContext(chart, now, place),
     meta,
   };
 }
@@ -141,10 +148,14 @@ export function buildChartContext(
  * pairs and per-planet ashtakavarga rows among other things. This keeps the
  * judgements an astrologer actually cites and drops what is re-derivable.
  */
-function buildAnalysisContext(chart: BirthChart, now: Date): ChartContext["analysis"] {
+function buildAnalysisContext(
+  chart: BirthChart,
+  now: Date,
+  place?: { latitude: number; longitude: number }
+): ChartContext["analysis"] {
   let a;
   try {
-    a = analyseChart(chart, now);
+    a = analyseChart(chart, now, place);
   } catch {
     return undefined;
   }
@@ -178,6 +189,23 @@ function buildAnalysisContext(chart: BirthChart, now: Date): ChartContext["analy
       omitted: a.strength.omitted,
       disclaimer: a.strength.disclaimer,
     },
+    ...(a.shadbala
+      ? {
+          shadbala: {
+            complete: true as const,
+            rows: a.shadbala.rows.map((r) => ({
+              planet: r.planet,
+              totalRupas: r.totalRupas,
+              requiredRupas: r.requiredRupas,
+              ratio: r.ratio,
+              meetsMinimum: r.meetsMinimum,
+              rank: r.rank,
+              cheshtaState: r.cheshta.state,
+            })),
+            method: a.shadbala.method,
+          },
+        }
+      : {}),
     sadeSati: {
       active: a.sadeSati.active, phaseName: a.sadeSati.phaseName,
       saturnSign: a.sadeSati.saturnSign, approxStart: a.sadeSati.approxStart,

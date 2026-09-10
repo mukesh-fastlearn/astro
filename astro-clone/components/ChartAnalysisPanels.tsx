@@ -76,29 +76,70 @@ export default function ChartAnalysisPanels({
         <Note>Yoga definitions differ between traditions; the rule applied is stated under each.</Note>
       </div>
 
-      {/* Strength */}
+      {/* Shadbala */}
       <div className={CARD}>
-        <h3 className={H3}><BarChart3 className="w-5 h-5" /> Planetary Strength</h3>
-        <div className="space-y-2">
-          {[...a.strength.components].sort((x, y) => x.rank - y.rank).map((c) => (
-            <div key={c.planet} className="flex items-center gap-3">
-              <span className="w-20 text-sm font-bold text-gray-700 shrink-0">{c.planet}</span>
-              <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-primary-saffron to-primary-red rounded-full"
-                  style={{ width: `${Math.max(2, (c.partialTotal / 240) * 100)}%` }}
-                />
-              </div>
-              <span className="w-14 text-right text-xs font-bold text-gray-500 shrink-0">
-                {c.partialTotal}
-              </span>
+        <h3 className={H3}><BarChart3 className="w-5 h-5" /> Shadbala</h3>
+        {a.shadbala ? (
+          <>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-[10px] uppercase tracking-widest text-gray-500 border-b border-gray-100">
+                    <th className="py-2">Planet</th><th>Sthana</th><th>Dig</th><th>Kala</th>
+                    <th>Cheshta</th><th>Naisargika</th><th>Drik</th><th>Rupas</th><th>Req.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...a.shadbala.rows].sort((x, y) => x.rank - y.rank).map((r) => (
+                    <tr key={r.planet} className="border-b border-gray-50">
+                      <td className="py-2 font-bold text-gray-800">{r.planet}</td>
+                      <td className="text-gray-600">{r.sthana.total}</td>
+                      <td className="text-gray-600">{r.dig}</td>
+                      <td className="text-gray-600">{r.kala.total}</td>
+                      <td className="text-gray-600" title={r.cheshta.state}>{r.cheshta.virupas}</td>
+                      <td className="text-gray-600">{r.naisargika}</td>
+                      <td className={r.drik < 0 ? "text-red-600" : "text-gray-600"}>{r.drik}</td>
+                      <td className="font-bold text-gray-900">{r.totalRupas}</td>
+                      <td className={r.meetsMinimum ? "text-emerald-600 font-bold" : "text-amber-600 font-bold"}>
+                        {r.requiredRupas} {r.meetsMinimum ? "✓" : "✗"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          ))}
-        </div>
-        <Note>
-          <strong>Partial figure.</strong> {a.strength.disclaimer} Included: {a.strength.included.join(", ")}.
-          Not computed: {a.strength.omitted.join(", ")}.
-        </Note>
+            <p className="mt-4 text-xs text-gray-500">
+              Motion states: {a.shadbala.rows.map((r) => `${r.planet} ${r.cheshta.state}`).join(" · ")}
+            </p>
+            <Note>
+              All six balas computed, in virupas (60 virupas = 1 rupa), against the classical minimums.
+              {" "}{a.shadbala.method[0]}
+            </Note>
+          </>
+        ) : (
+          <>
+            <div className="space-y-2">
+              {[...a.strength.components].sort((x, y) => x.rank - y.rank).map((c) => (
+                <div key={c.planet} className="flex items-center gap-3">
+                  <span className="w-20 text-sm font-bold text-gray-700 shrink-0">{c.planet}</span>
+                  <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-primary-saffron to-primary-red rounded-full"
+                      style={{ width: `${Math.max(2, (c.partialTotal / 240) * 100)}%` }}
+                    />
+                  </div>
+                  <span className="w-14 text-right text-xs font-bold text-gray-500 shrink-0">
+                    {c.partialTotal}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <Note>
+              <strong>Partial figure.</strong> Full Shadbala needs the birth place for sunrise and
+              sunset. {a.strength.disclaimer}
+            </Note>
+          </>
+        )}
       </div>
 
       {/* Sarvashtakavarga */}

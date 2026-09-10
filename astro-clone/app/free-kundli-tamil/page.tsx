@@ -59,7 +59,7 @@ export default function FreeKundliPage() {
               <ChartAnalysisPanels chart={chart} place={place ?? undefined} />
             </div>
             <div className="mt-12">
-              <AstroChat chart={chart} meta={meta} />
+              <AstroChat chart={chart} meta={meta} place={place ?? undefined} />
             </div>
           </>
         )}
