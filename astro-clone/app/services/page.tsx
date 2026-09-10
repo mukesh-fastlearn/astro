@@ -4,8 +4,8 @@ import { CONTACT } from "@/lib/nav";
 import { Heart, Briefcase, Home, ScrollText, ArrowRight, MessageCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Astrology Services — Astrologer Abhishek Soni",
-  description: "Professional Vedic astrology services by Abhishek Soni: marriage matching, career & finance, Vastu, and life prediction consultations.",
+  title: "Astrology Services — Golden Era Astro",
+  description: "Professional Vedic astrology services: marriage matching, career & finance, Vastu, and life prediction consultations.",
 };
 
 const SERVICES = [
@@ -26,7 +26,7 @@ export default function ServicesPage() {
             <span className="saffron-gradient">Sacred</span><br />Consultations
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto mt-5 font-medium">
-            Professional astrological services by Astrologer Abhishek Soni, rooted in pure Vedic tradition to deliver proven, life-changing results.
+            Professional astrological services rooted in pure Vedic tradition to deliver proven, life-changing results.
           </p>
         </div>
 
@@ -55,11 +55,17 @@ export default function ServicesPage() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 blur-[80px] rounded-full" />
           <h2 className="text-3xl font-serif font-bold mb-6 text-green-900 relative z-10">Need Quick Guidance?</h2>
           <p className="text-green-800 font-medium mb-10 max-w-xl mx-auto relative z-10">
-            Get instant answers to your pressing questions via WhatsApp. Connect directly with Abhishek Soni&apos;s office for priority booking.
+            Get instant answers to your pressing questions via WhatsApp. Connect directly with our office for priority booking.
           </p>
-          <a href={wa} target="_blank" rel="noopener noreferrer" className="relative z-10 inline-flex items-center gap-3 px-10 py-5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl text-lg transition-all hover:scale-105 shadow-lg shadow-green-600/30">
-            <MessageCircle className="w-6 h-6" /> Connect via WhatsApp
-          </a>
+          {CONTACT.phoneRaw ? (
+            <a href={wa} target="_blank" rel="noopener noreferrer" className="relative z-10 inline-flex items-center gap-3 px-10 py-5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl text-lg transition-all hover:scale-105 shadow-lg shadow-green-600/30">
+              <MessageCircle className="w-6 h-6" /> Connect via WhatsApp
+            </a>
+          ) : (
+            <Link href="/contact" className="relative z-10 inline-flex items-center gap-3 px-10 py-5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl text-lg transition-all hover:scale-105 shadow-lg shadow-green-600/30">
+              <MessageCircle className="w-6 h-6" /> Send us a message
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -13,17 +13,19 @@ export const ZODIAC_SIGN_SLUGS = [
 ];
 
 export const CONTACT = {
-  brand: "Astrologer Abhishek Soni",
-  shortBrand: "Abhishek Soni",
-  tagline: "Guiding Stars to Destiny",
-  experience: "25+ Years",
-  phone: "+91 82371 07999",
-  phoneRaw: "918237107999",
-  email: "abhisheksoni53@gmail.com",
-  locations: ["Nagpur, Maharashtra, India"],
+  brand: "Golden Era Astro",
+  shortBrand: "Golden Era Astro",
+  tagline: "Celestial Guidance",
+  experience: "",
+  // Fill these in when the real business details are ready.
+  // Empty values are hidden automatically by the UI.
+  phone: "",
+  phoneRaw: "",
+  email: "",
+  locations: [] as string[],
   socials: {
-    facebook: "https://facebook.com/astroabhisheksoni",
-    instagram: "https://instagram.com/astroabhisheksoni/",
-    youtube: "https://youtube.com/@AstrologerAbhishekSoni",
+    facebook: "",
+    instagram: "",
+    youtube: "",
   },
 };

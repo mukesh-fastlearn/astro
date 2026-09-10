@@ -27,21 +27,21 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt={CONTACT.brand} className="w-12 h-12 rounded-full object-cover ring-2 ring-primary-gold/40" />
             <div className="flex flex-col">
-              <span className="font-serif text-xl font-bold text-white leading-none">Abhishek Soni</span>
+              <span className="font-serif text-xl font-bold text-white leading-none">{CONTACT.shortBrand}</span>
               <span className="text-[10px] font-bold text-primary-saffron uppercase tracking-widest leading-none mt-1">Vedic Astrology</span>
             </div>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed">
-            Over 25 years of experience delivering proven results. Accurate Vedic astrology,
-            Nadi readings, and powerful remedies for life&apos;s challenges.
+            Authentic Vedic astrology calculations — birth charts, compatibility, numerology
+            and dasha timelines, computed from real planetary positions.
           </p>
           <div className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-primary-gold">
             <ShieldCheck className="w-4 h-4" /> 100% Confidential
           </div>
           <div className="flex gap-3 mt-5">
-            <a href={CONTACT.socials.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-saffron transition"><Facebook className="w-4 h-4" /></a>
-            <a href={CONTACT.socials.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-saffron transition"><Instagram className="w-4 h-4" /></a>
-            <a href={CONTACT.socials.youtube} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-saffron transition"><Youtube className="w-4 h-4" /></a>
+            {CONTACT.socials.facebook && <a href={CONTACT.socials.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-saffron transition"><Facebook className="w-4 h-4" /></a>}
+            {CONTACT.socials.instagram && <a href={CONTACT.socials.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-saffron transition"><Instagram className="w-4 h-4" /></a>}
+            {CONTACT.socials.youtube && <a href={CONTACT.socials.youtube} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-saffron transition"><Youtube className="w-4 h-4" /></a>}
           </div>
         </div>
 
@@ -66,16 +66,19 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-bold mb-5 uppercase text-sm tracking-widest">Contact Us</h4>
           <ul className="space-y-4 text-sm">
-            <li className="flex items-start gap-3"><MapPin className="w-4 h-4 text-primary-saffron mt-0.5 shrink-0" /><span className="text-slate-400">Nagpur, Maharashtra, India</span></li>
-            <li className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary-saffron shrink-0" /><a href={`tel:${CONTACT.phoneRaw}`} className="text-slate-400 hover:text-primary-saffron">{CONTACT.phone}</a></li>
-            <li className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary-saffron shrink-0" /><a href={`mailto:${CONTACT.email}`} className="text-slate-400 hover:text-primary-saffron break-all">{CONTACT.email}</a></li>
+            {CONTACT.locations.map((l) => (
+              <li key={l} className="flex items-start gap-3"><MapPin className="w-4 h-4 text-primary-saffron mt-0.5 shrink-0" /><span className="text-slate-400">{l}</span></li>
+            ))}
+            {CONTACT.phone && <li className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary-saffron shrink-0" /><a href={`tel:${CONTACT.phoneRaw}`} className="text-slate-400 hover:text-primary-saffron">{CONTACT.phone}</a></li>}
+            {CONTACT.email && <li className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary-saffron shrink-0" /><a href={`mailto:${CONTACT.email}`} className="text-slate-400 hover:text-primary-saffron break-all">{CONTACT.email}</a></li>}
+            {!CONTACT.phone && !CONTACT.email && <li className="text-slate-400">Reach us through the <Link href="/contact" className="text-primary-saffron hover:underline">contact form</Link>.</li>}
           </ul>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Astrologer Abhishek Soni. All Rights Reserved. <span className="mx-1">|</span> ஜோதிடம் மற்றும் ஜாதகம்</p>
+          <p>© {new Date().getFullYear()} {CONTACT.brand}. All Rights Reserved. <span className="mx-1">|</span> ஜோதிடம் மற்றும் ஜாதகம்</p>
           <div className="flex gap-5">
             <span className="hover:text-primary-saffron cursor-pointer">Privacy Policy</span>
             <span className="hover:text-primary-saffron cursor-pointer">Terms of Service</span>

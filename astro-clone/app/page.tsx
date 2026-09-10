@@ -2,17 +2,17 @@ import Link from "next/link";
 import {
   Sparkles, Star, ArrowRight, ScrollText, HeartHandshake, Calculator,
   CalendarHeart, Hourglass, BookOpen, Briefcase, Heart, HeartPulse,
-  CalendarCheck, FileText, PhoneCall, Repeat, ShieldCheck, Lock, BadgeCheck, Quote,
+  CalendarCheck, FileText, PhoneCall, Repeat, ShieldCheck, Lock, BadgeCheck,
 } from "lucide-react";
 import { TAMIL_RASI } from "@/lib/zodiac";
 import { ZODIAC_SIGN_SLUGS } from "@/lib/nav";
 import Panchang from "@/components/Panchang";
 
 const STATS = [
-  { value: "98%", label: "Accurate Predictions" },
-  { value: "50,000+", label: "Lives Transformed" },
-  { value: "25+", label: "Years of Heritage" },
-  { value: "100%", label: "Client Satisfaction" },
+  { value: "20", label: "Divisional Charts" },
+  { value: "36", label: "Point Guna Milan" },
+  { value: "27", label: "Nakshatras Mapped" },
+  { value: "5", label: "Dasha Levels" },
 ];
 
 const NAVAGRAHA = [
@@ -39,7 +39,7 @@ const TOOLS = [
 const STEPS = [
   { icon: CalendarCheck, title: "1. Book Appointment", desc: "Select a convenient time slot for your detailed consultation." },
   { icon: FileText, title: "2. Provide Details", desc: "Share your exact date, time, and place of birth securely." },
-  { icon: PhoneCall, title: "3. Direct Consultation", desc: "1-on-1 private call with Abhishek Soni for in-depth analysis." },
+  { icon: PhoneCall, title: "3. Direct Consultation", desc: "1-on-1 private consultation for in-depth analysis." },
   { icon: Repeat, title: "4. Perform Remedies", desc: "Follow specific, proven Vedic remedies to overcome life's hurdles." },
 ];
 
@@ -49,14 +49,8 @@ const SERVICES = [
   { icon: HeartPulse, title: "Health & Remedies", tamil: "ஆரோக்கியம் மற்றும் பரிகாரம்", desc: "Understand planetary influences on health and receive powerful Vedic remedies, gemstones, and mantra prescriptions." },
 ];
 
-const TESTIMONIALS = [
-  { quote: "Panditji accurately predicted my career change. His remedies worked wonders within 3 months. Truly blessed to have found him.", name: "Karthik R.", city: "Mumbai", initial: "K" },
-  { quote: "We were facing huge delays in our daughter's marriage. After performing the dosha nivarana suggested by Abhishek ji, she found a wonderful match.", name: "Priya S.", city: "Pune", initial: "P" },
-  { quote: "His business astrology reading saved me from a massive loss. The depth of his knowledge in Vedic astrology is unmatched.", name: "Anand M.", city: "Nagpur", initial: "A" },
-];
-
 const FAQ = [
-  { q: "How accurate are the predictions?", a: "Astrology is a guiding science based on precise astronomical calculations of planetary positions at your birth. Abhishek Soni's 25+ years of experience allows him to interpret these positions with exceptionally high accuracy, identifying trends and potential outcomes." },
+  { q: "How accurate are the predictions?", a: "Our calculations use real geocentric planetary positions from a professional ephemeris, converted to the sidereal zodiac using the Lahiri ayanamsa. The astronomy is exact; interpretation of those positions is the traditional Vedic layer applied on top." },
   { q: "Is the consultation completely confidential?", a: "Absolutely. 100% confidentiality is a core pillar of our practice. Your personal details, birth data, and the content of your consultation will never be shared with any third party." },
   { q: "Can remedies (Pariharam) change destiny?", a: "Remedies do not alter your fundamental karma, but they significantly reduce the intensity of negative impacts and enhance positive periods, much like an umbrella protects you from the rain." },
 ];
@@ -75,7 +69,7 @@ export default function Home() {
               <span>Proven Results • 25+ Years Experience</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-bold mb-6 tracking-tight text-gray-900 leading-tight">
-              Unlock Your Destiny with <span className="saffron-gradient">Astrologer Abhishek Soni</span>
+              Unlock Your Destiny with <span className="saffron-gradient">Golden Era Astro</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-700 max-w-2xl mb-10 leading-relaxed font-medium mx-auto lg:mx-0">
               Expert Vedic astrology consultations rooted in authentic tradition. Get precise predictions,
@@ -242,36 +236,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="w-full bg-primary-cream py-24">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Proven Results</h2>
-            <p className="text-gray-600 font-medium max-w-2xl mx-auto">
-              Read what our clients have to say about the transformative power of Abhishek Soni&apos;s guidance.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-                <Quote className="w-8 h-8 text-primary-saffron/40 mb-3" />
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-4 h-4 text-primary-gold fill-primary-gold" />)}
-                </div>
-                <p className="text-gray-700 font-medium leading-relaxed mb-6">{t.quote}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary-saffron to-primary-red text-white font-serif font-bold flex items-center justify-center">{t.initial}</div>
-                  <div>
-                    <p className="font-bold text-gray-900">{t.name}</p>
-                    <p className="text-xs text-gray-500">{t.city}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section className="w-full bg-white py-24 border-y border-gray-100">
         <div className="max-w-3xl mx-auto px-4 md:px-8">
@@ -298,7 +262,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 md:px-8 text-center relative z-10 text-white">
           <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">Do Not Leave Your Future to Chance</h2>
           <p className="text-white/90 font-medium max-w-2xl mx-auto mb-10">
-            Get an accurate reading from Astrologer Abhishek Soni and take control of your destiny today.
+            Get an accurate reading and take control of your destiny today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link href="/free-kundli-tamil" className="px-8 py-3.5 bg-white text-primary-red font-bold rounded-xl uppercase tracking-wider shadow-lg hover:shadow-xl transition">Calculate Kundli</Link>

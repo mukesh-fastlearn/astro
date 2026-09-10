@@ -8,13 +8,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://abhishekastro.com"),
-  title: "Astrologer Abhishek Soni — Vedic Astrology, Kundli & Free Tools",
+  metadataBase: new URL("https://astro.rtechailabs.com"),
+  title: "Golden Era Astro — Vedic Astrology, Kundli & Free Tools",
   description:
-    "Celebrity Vedic astrologer Abhishek Soni (25+ years, Nagpur). Free Kundli, Guna Milan compatibility, numerology, Vimshottari dasha, marriage prediction and daily horoscopes. Guiding Stars to Destiny.",
+    "Free Vedic astrology tools: Kundli birth chart, Guna Milan compatibility, numerology, Vimshottari dasha timeline, marriage prediction and daily horoscopes — computed from real planetary positions.",
   openGraph: {
-    title: "Astrologer Abhishek Soni — Vedic Astrology & Free Tools",
-    description: "Celebrity Vedic astrologer with 25+ years of experience. Guiding Stars to Destiny.",
+    title: "Golden Era Astro — Vedic Astrology & Free Tools",
+    description: "Free Vedic astrology calculators built on real astronomical data.",
     images: ["/logo.png"],
     type: "website",
   },

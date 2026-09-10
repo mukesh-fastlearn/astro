@@ -36,7 +36,7 @@ export default function Navbar() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt={CONTACT.brand} className="w-11 h-11 rounded-full object-cover ring-2 ring-primary-gold/40 shrink-0" />
           <div className="flex flex-col">
-            <span className="font-serif text-2xl font-bold text-primary-red tracking-tight leading-none">Abhishek Soni</span>
+            <span className="font-serif text-2xl font-bold text-primary-red tracking-tight leading-none">{CONTACT.shortBrand}</span>
             <span className="font-sans text-[10px] font-bold text-primary-saffron uppercase tracking-widest leading-none mt-1">Vedic Astrology</span>
           </div>
         </Link>

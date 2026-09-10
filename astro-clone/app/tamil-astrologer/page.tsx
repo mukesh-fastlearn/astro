@@ -4,11 +4,11 @@ import { CONTACT } from "@/lib/nav";
 import { BadgeCheck, ShieldCheck, Award, Sparkles, Compass, Clock, HelpCircle, Home, Flame, Star } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Astrologer Abhishek Soni — Master of Vedic & Nadi Astrology",
-  description: "Meet Astrologer Abhishek Soni, a celebrity Vedic & Nadi astrologer from Nagpur with 25+ years of experience, guaranteed remedies, and proven results.",
+  title: "About Golden Era Astro — Vedic Astrology & Calculation Method",
+  description: "How Golden Era Astro computes birth charts: real ephemeris data, Lahiri ayanamsa, whole-sign houses, 27 nakshatras and Vimshottari dasha.",
 };
 
-const ACHIEVEMENTS = ["Jyotish Ratna Awardee", "Nadi & Prashna Expert", "50k+ Accurate Readings", "Guaranteed Remedies"];
+const ACHIEVEMENTS = ["Real Ephemeris Data", "Lahiri Ayanamsa", "D1–D60 Divisional Charts", "5-Level Vimshottari Dasha"];
 
 const EXPERTISE = [
   { icon: ShieldCheck, title: "Dosha Nivarana", desc: "Expert remedies for Kuja Dosha, Kala Sarpa Dosha, and Pitru Dosha." },
@@ -18,9 +18,9 @@ const EXPERTISE = [
 ];
 
 const TIMELINE = [
-  { n: "1", years: "1998 - 2008", title: "Rigorous Foundation", desc: "Intensive Gurukul training in traditional Vedic texts, astronomy, and Nadi astrology under revered masters." },
-  { n: "2", years: "2009 - 2018", title: "Establishment of Practice", desc: "Started consulting in Nagpur, gaining a rapid reputation for highly accurate predictions and effective dosha remedies." },
-  { n: "3", years: "2019 - Present", title: "Global Reach", desc: "Consulting clients worldwide, integrating modern technology while strictly maintaining traditional authenticity." },
+  { n: "1", years: "Step One", title: "Astronomical Positions", desc: "Your birth moment is converted to precise geocentric longitudes for all nine grahas using a professional ephemeris — the same astronomy used in observatories." },
+  { n: "2", years: "Step Two", title: "Sidereal Conversion", desc: "Those tropical positions are shifted to the sidereal zodiac using the Lahiri ayanamsa, including drift and nutation, as Vedic astrology requires." },
+  { n: "3", years: "Step Three", title: "Chart Construction", desc: "Ascendant from local sidereal time, whole-sign houses, 27 nakshatras with sub-lords, 20 divisional charts, and a five-level Vimshottari dasha." },
 ];
 
 const TRADITIONS = [
@@ -39,19 +39,20 @@ export default function AboutPage() {
           <div>
             <div className="flex flex-wrap gap-3 mb-6">
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-primary-saffron/20 text-primary-red text-xs font-bold uppercase tracking-widest"><BadgeCheck className="w-4 h-4" /> Verified Expert</span>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-widest"><ShieldCheck className="w-4 h-4" /> 100% Guaranteed Solutions</span>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-widest"><ShieldCheck className="w-4 h-4" /> Transparent Calculations</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-900 leading-tight">
-              Meet <span className="saffron-gradient">Abhishek Soni</span>
+              About <span className="saffron-gradient">Golden Era Astro</span>
             </h1>
-            <p className="text-primary-red font-semibold mt-3 text-lg">Master of Vedic &amp; Nadi Astrology</p>
+            <p className="text-primary-red font-semibold mt-3 text-lg">Vedic Astrology, Calculated Honestly</p>
             <p className="text-gray-600 mt-6 font-medium leading-relaxed">
-              With over <span className="font-bold text-gray-900">25 years of dedicated practice</span> in the sacred art of
-              Jyothisham, Abhishek Soni has been a guiding light for thousands of individuals, families, and business leaders across the globe.
+              Golden Era Astro brings traditional Jyotish into a form you can check. Every chart on this site is
+              computed from <span className="font-bold text-gray-900">real planetary positions</span>, not lookup tables or approximations.
             </p>
             <p className="text-gray-600 mt-4 font-medium leading-relaxed">
-              Hailing from a revered lineage of traditional astrologers, his unique approach combines ancient Vedic principles,
-              precise mathematical calculations, and deep intuitive insights to offer <span className="font-bold text-gray-900">proven, practical solutions</span> to modern-day problems.
+              The engine reproduces the classical methods faithfully — Ashtakoota Guna Milan, Chaldean numerology, Manglik
+              analysis and Vimshottari dasha — so the <span className="font-bold text-gray-900">mathematics is exact</span> and the
+              interpretation sits openly on top of it.
             </p>
             <div className="grid grid-cols-2 gap-3 mt-8">
               {ACHIEVEMENTS.map((a) => (
@@ -66,7 +67,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 border-4 border-primary-saffron/30 rounded-full animate-spin-slow" />
               <div className="absolute inset-3 border-4 border-dashed border-primary-gold/40 rounded-full animate-reverse-spin" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Astrologer Abhishek Soni" className="absolute inset-6 object-cover rounded-full shadow-2xl border-8 border-white" />
+              <img src="/hero.jpg" alt="Vedic astrologer offering celestial guidance" className="absolute inset-6 object-cover rounded-full shadow-2xl border-8 border-white" />
             </div>
           </div>
         </div>
@@ -81,9 +82,9 @@ export default function AboutPage() {
               Through awareness and right action (Pariharam), we can alter the course of our destiny.&rdquo;
             </p>
             <p className="text-gray-700 font-medium leading-relaxed">
-              Abhishek Soni strictly adheres to the principle that while the planetary placements at birth indicate past life karmas,
-              the application of precise Vedic remedies—such as specific mantra chanting, gemstone therapy, and charitable acts—can
-              significantly mitigate hardships and amplify success.
+              Vedic tradition holds that planetary placements at birth indicate karmic patterns, and that remedies — mantra,
+              gemstone therapy, charitable acts — help mitigate hardship and amplify favourable periods. The chart shows the
+              pattern; what you do with it remains yours.
             </p>
           </div>
         </div>
@@ -108,8 +109,8 @@ export default function AboutPage() {
         {/* Legacy timeline */}
         <div className="mb-28">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">A Legacy of <span className="saffron-gradient">Wisdom</span></h2>
-            <p className="text-gray-600 font-medium mt-3">Decades of rigorous study and practical application of cosmic sciences.</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">How It Is <span className="saffron-gradient">Calculated</span></h2>
+            <p className="text-gray-600 font-medium mt-3">How every chart on this site is built, step by step.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {TIMELINE.map((t) => (
@@ -127,7 +128,7 @@ export default function AboutPage() {
         <div className="mb-20">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">Sacred <span className="saffron-gradient">Traditions</span></h2>
-            <p className="text-gray-600 font-medium mt-3">A glimpse into the authentic practices and powerful poojas conducted by Abhishek Soni to resolve life&apos;s hurdles.</p>
+            <p className="text-gray-600 font-medium mt-3">The traditional practices that accompany Vedic astrological guidance.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TRADITIONS.map((t) => (
