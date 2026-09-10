@@ -6,6 +6,7 @@ import { calculateBirthChart, BirthChart } from "@/lib/astrology/kundli";
 import CalcHero from "@/components/CalcHero";
 import KundliResult from "@/components/KundliResult";
 import AstroChat from "@/components/AstroChat";
+import ChartAnalysisPanels from "@/components/ChartAnalysisPanels";
 
 interface Meta { name: string; date: string; time: string; place: string; }
 
@@ -52,6 +53,9 @@ export default function FreeKundliPage() {
         {chart && meta && (
           <>
             <KundliResult chart={chart} meta={meta} onEdit={() => setChart(null)} />
+            <div className="mt-12">
+              <ChartAnalysisPanels chart={chart} />
+            </div>
             <div className="mt-12">
               <AstroChat chart={chart} meta={meta} />
             </div>

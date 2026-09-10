@@ -6,6 +6,7 @@
 // than shipping the whole timeline.
 
 import { BirthChart, DashaPeriod, PlanetDetail } from "./kundli";
+import { analyseChart } from "./analysis";
 
 export interface ChartContext {
   ascendant: string;
@@ -29,6 +30,33 @@ export interface ChartContext {
   navamsaD9: { ascendant: string; houses: { house: number; sign: string; planets: string[] }[] };
   dashamshaD10: { ascendant: string; houses: { house: number; sign: string; planets: string[] }[] };
   currentDasha: { level: string; planet: string; from: string; to: string }[];
+  /** Derived classical judgements — computed, never invented by the model. */
+  analysis?: {
+    dignities: { planet: string; sign: string; status: string; dispositor: string }[];
+    houses: {
+      house: number; sign: string; lord: string; lordInHouse: number;
+      occupants: string[]; aspectedBy: string[]; significations: string[]; savBindus: number;
+    }[];
+    aspectedHouses: Record<string, number[]>;
+    yogas: { name: string; category: string; conditionsMet: string[]; effects: string[]; basis: string; strength: number }[];
+    charaKarakas: { karaka: string; planet: string; signifies: string }[];
+    arudhaPadas: { id: string; arudhaSign: string; arudhaHouse: number }[];
+    sarvashtakavargaByHouse: { house: number; sign: string; bindus: number }[];
+    strength: {
+      ranking: { planet: string; rank: number; partialTotal: number }[];
+      included: string[]; omitted: string[]; disclaimer: string;
+    };
+    sadeSati: { active: boolean; phaseName: string; saturnSign: string; approxStart?: string; approxEnd?: string; note: string };
+    dhaiya: { active: boolean; kind?: string; note: string };
+    transits: { planet: string; sign: string; retrograde: boolean; houseFromLagna: number; houseFromMoon: number }[];
+    lalKitab: {
+      houseScheme: string;
+      placements: { planet: string; sign: string; house: number; state: string }[];
+      upay: { planet: string; measures: string[]; avoid: string[] }[];
+      disclaimer: string;
+    };
+    remedies: { type: string; planet: string; recommendation: string; reasons: string[]; confidence: number; cautions: string[] }[];
+  };
   meta?: { name?: string; place?: string; date?: string; time?: string };
 }
 
@@ -103,6 +131,76 @@ export function buildChartContext(
       ? { ascendant: d10.ascendant, houses: slimHouses(d10.houses) }
       : { ascendant: "", houses: [] },
     currentDasha: activeDashaChain(chart.dashas, now),
+    analysis: buildAnalysisContext(chart, now),
     meta,
+  };
+}
+
+/**
+ * The full analysis is far larger than a prompt should carry — 56 relationship
+ * pairs and per-planet ashtakavarga rows among other things. This keeps the
+ * judgements an astrologer actually cites and drops what is re-derivable.
+ */
+function buildAnalysisContext(chart: BirthChart, now: Date): ChartContext["analysis"] {
+  let a;
+  try {
+    a = analyseChart(chart, now);
+  } catch {
+    return undefined;
+  }
+
+  return {
+    dignities: a.dignities.map((d) => ({
+      planet: d.planet, sign: d.sign, status: d.status, dispositor: d.dispositor,
+    })),
+    houses: a.houses.map((h) => ({
+      house: h.house, sign: h.sign, lord: h.lord, lordInHouse: h.lordPlacedInHouse,
+      occupants: h.occupants, aspectedBy: h.aspectedBy,
+      significations: h.significations, savBindus: h.sarvashtakavargaBindus,
+    })),
+    aspectedHouses: a.aspectedHouses,
+    yogas: a.yogas.map((y) => ({
+      name: y.name, category: y.category, conditionsMet: y.conditionsMet,
+      effects: y.effects, basis: y.basis, strength: y.strength,
+    })),
+    charaKarakas: a.charaKarakas.map((k) => ({
+      karaka: k.karaka, planet: k.planet, signifies: k.signifies,
+    })),
+    arudhaPadas: a.arudhaPadas.map((p) => ({
+      id: p.id, arudhaSign: p.arudhaSign, arudhaHouse: p.arudhaHouse,
+    })),
+    sarvashtakavargaByHouse: a.sarvaByHouse,
+    strength: {
+      ranking: a.strength.components
+        .map((c) => ({ planet: c.planet, rank: c.rank, partialTotal: c.partialTotal }))
+        .sort((x, y) => x.rank - y.rank),
+      included: a.strength.included,
+      omitted: a.strength.omitted,
+      disclaimer: a.strength.disclaimer,
+    },
+    sadeSati: {
+      active: a.sadeSati.active, phaseName: a.sadeSati.phaseName,
+      saturnSign: a.sadeSati.saturnSign, approxStart: a.sadeSati.approxStart,
+      approxEnd: a.sadeSati.approxEnd, note: a.sadeSati.note,
+    },
+    dhaiya: { active: a.dhaiya.active, kind: a.dhaiya.kind, note: a.dhaiya.note },
+    transits: a.transits.map((t) => ({
+      planet: t.planet, sign: t.sign, retrograde: t.retrograde,
+      houseFromLagna: t.houseFromLagna, houseFromMoon: t.houseFromMoon,
+    })),
+    lalKitab: {
+      houseScheme: a.lalKitab.houseScheme,
+      placements: a.lalKitab.placements.map((p) => ({
+        planet: p.planet, sign: p.sign, house: p.house, state: p.state,
+      })),
+      upay: a.lalKitab.upay.map((u) => ({
+        planet: u.planet, measures: u.measures, avoid: u.avoid,
+      })),
+      disclaimer: a.lalKitab.disclaimer,
+    },
+    remedies: a.remedies.map((r) => ({
+      type: r.type, planet: r.planet, recommendation: r.recommendation,
+      reasons: r.reasons, confidence: r.confidence, cautions: r.cautions,
+    })),
   };
 }

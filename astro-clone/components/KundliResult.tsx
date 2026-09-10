@@ -3,6 +3,7 @@
 import { BirthChart, House } from "@/lib/astrology/kundli";
 import { ZODIAC_SIGNS } from "@/lib/astrology/constants";
 import { Download, Star, Pencil } from "lucide-react";
+import VargaExplorer from "@/components/VargaExplorer";
 
 const ABBR: Record<string, string> = {
   Ascendant: "Asc", Sun: "Su", Moon: "Mo", Mars: "Ma", Mercury: "Me",
@@ -123,6 +124,17 @@ export default function KundliResult({ chart, meta, onEdit }: { chart: BirthChar
               </div>
             );
           })}
+
+          {/* Every remaining varga, selectable. */}
+          <VargaExplorer
+            chart={chart}
+            render={(id) => {
+              const d = chart.divisionalCharts[id];
+              return d ? (
+                <SouthIndianChart housesBySign={housesToMap(d.houses)} ascSign={d.ascendant} centerLabel={id} />
+              ) : null;
+            }}
+          />
         </div>
 
         {/* Right: tables */}
