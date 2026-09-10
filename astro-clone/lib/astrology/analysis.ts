@@ -13,6 +13,10 @@ import { computeStrength, StrengthResult } from "./strength";
 import { computeTransits, computeSadeSati, computeDhaiya, TransitPosition, SadeSatiState, DhaiyaState } from "./transits";
 import { computeLalKitab, LalKitabReading } from "./lalkitab";
 import { recommendRemedies, RemedyRecommendation, HOUSE_SIGNIFICATIONS } from "./remedies";
+import { computeAllAltDashas } from "./dashas-alt";
+import { computeWesternLayer, WesternChartLayer } from "./western";
+import { computeReturns, PlanetaryReturn } from "./returns";
+import { computeMuhurta, MuhurtaDay } from "./muhurta";
 import { RASHI_LORDS, ZODIAC_SIGNS } from "./constants";
 
 export interface HouseAnalysis {
@@ -44,6 +48,10 @@ export interface ChartAnalysis {
   lalKitab: LalKitabReading;
   remedies: RemedyRecommendation[];
   currentDashaLord: string | null;
+  altDashas: ReturnType<typeof computeAllAltDashas> | null;
+  western: WesternChartLayer | null;
+  returns: PlanetaryReturn[];
+  muhurta: MuhurtaDay | null;
 }
 
 const inclusive = (from: number, to: number) => ((to - from + 12) % 12) + 1;
@@ -110,7 +118,11 @@ function pickFocusPlanets(
   return [...merged.values()];
 }
 
-export function analyseChart(chart: BirthChart, at: Date = new Date()): ChartAnalysis {
+export function analyseChart(
+  chart: BirthChart,
+  at: Date = new Date(),
+  place?: { latitude: number; longitude: number }
+): ChartAnalysis {
   const planets = chart.planetaryDetails;
   const ascSign = chart.ascendant;
   const ascIdx = (ZODIAC_SIGNS as readonly string[]).indexOf(ascSign);
@@ -165,6 +177,22 @@ export function analyseChart(chart: BirthChart, at: Date = new Date()): ChartAna
     };
   });
 
+  // These layers each re-enter the ephemeris, so each is isolated: one
+  // failing must not take down the rest of the reading.
+  let altDashas: ChartAnalysis["altDashas"] = null;
+  try { altDashas = computeAllAltDashas(chart, at); } catch { /* optional layer */ }
+
+  let western: WesternChartLayer | null = null;
+  try { western = computeWesternLayer(chart); } catch { /* optional layer */ }
+
+  let returns: PlanetaryReturn[] = [];
+  try { returns = computeReturns(chart, { from: at }); } catch { /* optional layer */ }
+
+  let muhurta: MuhurtaDay | null = null;
+  if (place) {
+    try { muhurta = computeMuhurta(at, place.latitude, place.longitude); } catch { /* optional layer */ }
+  }
+
   const currentDashaLord = activeDashaLord(chart, at);
   const remedies = recommendRemedies({
     focusPlanets: pickFocusPlanets(dignities, strength, currentDashaLord),
@@ -188,5 +216,9 @@ export function analyseChart(chart: BirthChart, at: Date = new Date()): ChartAna
     lalKitab,
     remedies,
     currentDashaLord,
+    altDashas,
+    western,
+    returns,
+    muhurta,
   };
 }

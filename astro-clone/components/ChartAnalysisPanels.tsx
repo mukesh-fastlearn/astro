@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   Sparkles, Gem, Flame, BarChart3, Compass, Clock, ShieldAlert, BookOpen, Info,
+  Hourglass, Globe2, RotateCw, Sun,
 } from "lucide-react";
 import { BirthChart } from "@/lib/astrology/kundli";
 import { analyseChart } from "@/lib/astrology/analysis";
@@ -19,15 +20,21 @@ function Note({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function ChartAnalysisPanels({ chart }: { chart: BirthChart }) {
+export default function ChartAnalysisPanels({
+  chart,
+  place,
+}: {
+  chart: BirthChart;
+  place?: { latitude: number; longitude: number };
+}) {
   // analyseChart hits the ephemeris again for transits, so memoise it.
   const a = useMemo(() => {
     try {
-      return analyseChart(chart);
+      return analyseChart(chart, new Date(), place);
     } catch {
       return null;
     }
-  }, [chart]);
+  }, [chart, place]);
 
   const [showAllRemedies, setShowAllRemedies] = useState(false);
 
@@ -254,6 +261,120 @@ export default function ChartAnalysisPanels({ chart }: { chart: BirthChart }) {
         </div>
         <Note>{a.lalKitab.disclaimer}</Note>
       </div>
+
+      {/* Alternative dasha systems */}
+      {a.altDashas && (
+        <div className={CARD}>
+          <h3 className={H3}><Hourglass className="w-5 h-5" /> Other Dasha Systems</h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[a.altDashas.yogini, a.altDashas.ashtottari, a.altDashas.chara].map((d) => (
+              <div key={d.system} className="border border-gray-100 rounded-2xl p-5">
+                <div className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
+                  {d.system}
+                </div>
+                {d.current ? (
+                  <>
+                    <div className="font-serif text-xl font-bold text-primary-red">
+                      {d.current.name}
+                    </div>
+                    {d.current.lord !== d.current.name && (
+                      <div className="text-xs text-gray-500">lord: {d.current.lord}</div>
+                    )}
+                    <div className="text-xs text-gray-600 mt-2">
+                      {d.current.start} → {d.current.end}
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-sm text-gray-500">Not available</div>
+                )}
+                <p className="text-[11px] text-gray-400 mt-3">{d.basis}</p>
+              </div>
+            ))}
+          </div>
+          <Note>
+            Vimshottari (shown in the main timeline) remains the primary system. These run alongside
+            it and are read for confirmation, not in place of it.
+          </Note>
+        </div>
+      )}
+
+      {/* Planetary returns */}
+      {a.returns.length > 0 && (
+        <div className={CARD}>
+          <h3 className={H3}><RotateCw className="w-5 h-5" /> Upcoming Planetary Returns</h3>
+          <div className="space-y-2">
+            {a.returns.map((r, i) => (
+              <div key={i} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-gray-50 pb-2">
+                <span className="font-bold text-gray-900 w-36 shrink-0">{r.type}</span>
+                <span className="text-primary-red font-bold">{r.exactDate}</span>
+                <span className="text-xs text-gray-500">age {r.ageAtReturn}</span>
+                <span className="text-xs text-gray-500 basis-full sm:basis-auto">{r.note}</span>
+              </div>
+            ))}
+          </div>
+          <Note>Dates are found by scanning the ephemeris for the exact return to the natal longitude, not by rounding to an average orbital period.</Note>
+        </div>
+      )}
+
+      {/* Muhurta */}
+      {a.muhurta && a.muhurta.sunrise && (
+        <div className={CARD}>
+          <h3 className={H3}><Sun className="w-5 h-5" /> Today&apos;s Muhurta</h3>
+          <p className="text-xs text-gray-500 mb-4">
+            {a.muhurta.weekday} · sunrise to sunset {a.muhurta.dayLengthHours}h
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {[...a.muhurta.inauspicious, ...(a.muhurta.abhijit ? [a.muhurta.abhijit] : [])].map((w) => (
+              <div
+                key={w.name}
+                className={`rounded-xl border p-4 ${
+                  w.quality === "auspicious"
+                    ? "bg-emerald-50 border-emerald-200"
+                    : "bg-amber-50 border-amber-200"
+                }`}
+              >
+                <div className="font-bold text-gray-900 text-sm">{w.name}</div>
+                <div className="text-xs text-gray-600 mt-1">
+                  {new Date(w.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  {" – "}
+                  {new Date(w.end).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                </div>
+                {w.note && <div className="text-[11px] text-gray-500 mt-1">{w.note}</div>}
+              </div>
+            ))}
+          </div>
+          <Note>{a.muhurta.note}</Note>
+        </div>
+      )}
+
+      {/* Western layer */}
+      {a.western && a.western.aspects.length > 0 && (
+        <div className={CARD}>
+          <h3 className={H3}><Globe2 className="w-5 h-5" /> Western (Tropical) Layer</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-[10px] uppercase tracking-widest text-gray-500 border-b border-gray-100">
+                  <th className="py-2">Aspect</th><th>Angle</th><th>Orb</th><th>Phase</th>
+                </tr>
+              </thead>
+              <tbody>
+                {a.western.aspects.slice(0, 10).map((asp, i) => (
+                  <tr key={i} className="border-b border-gray-50">
+                    <td className="py-2 font-bold text-gray-800">
+                      {asp.planetA} {asp.type} {asp.planetB}
+                    </td>
+                    <td className="text-gray-600">{asp.exactAngle}°</td>
+                    <td className="text-gray-600">{asp.orb}°</td>
+                    <td className="text-gray-600">{asp.applying ? "applying" : "separating"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Note>{a.western.note} Ayanamsa of {a.western.ayanamsaApplied}° was added back to recover tropical positions.</Note>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Send, Sparkles, Loader2, AlertCircle } from "lucide-react";
 import { BirthChart } from "@/lib/astrology/kundli";
 import { buildChartContext, ChartContext } from "@/lib/astrology/context";
+import { retrieve } from "@/lib/astrology/knowledge-graph";
 
 interface Msg {
   role: "user" | "assistant";
@@ -48,7 +49,12 @@ export default function AstroChat({
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ chart: buildChartContext(chart, meta), messages: next }),
+        body: JSON.stringify({
+          chart: buildChartContext(chart, meta),
+          messages: next,
+          // Structured retrieval over the knowledge graph, scoped to this question.
+          knowledge: retrieve(question, 40),
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong.");

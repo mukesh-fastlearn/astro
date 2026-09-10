@@ -70,17 +70,37 @@ Hard rules:
 - Be specific and grounded: cite the placement you are reasoning from, e.g.
   "Saturn in the 7th from Lagna" or "you are running Jupiter mahadasha".
 - Answer in the language the user writes in. Keep replies focused; 2-4 short
-  paragraphs unless the user asks for depth.`;
+  paragraphs unless the user asks for depth.
+- The strength figures are PARTIAL — Kala Bala and Cheshta Bala are not
+  computed. Never call them a Shadbala total, and repeat that caveat if asked.
+- The Vedic and Western layers are different systems. Do not blend them or
+  imply they agree.
+- Lal Kitab uses fixed houses (1st house is always Aries), so its placements
+  legitimately differ from the Parashari chart. Explain that if it comes up.`;
 
-function buildPrompt(chart, messages) {
+function buildPrompt(chart, messages, knowledge) {
   const convo = messages
     .slice(-MAX_HISTORY)
     .map((m) => `${m.role === "assistant" ? "Astrologer" : "User"}: ${m.content}`)
     .join("\n\n");
 
+  const kb =
+    Array.isArray(knowledge) && knowledge.length
+      ? [
+          "",
+          "=== KNOWLEDGE BASE (retrieved for this question) ===",
+          "Each line is subject | relation | object | basis. 'traditional-association'",
+          "means recorded tradition, not established fact — say so when using it.",
+          ...knowledge
+            .slice(0, 60)
+            .map((f) => `${f.subject} | ${f.relation} | ${f.object} | ${f.basis}`),
+        ].join("\n")
+      : "";
+
   return [
     "=== CHART DATA (authoritative, computed) ===",
     JSON.stringify(chart, null, 1),
+    kb,
     "",
     "=== CONVERSATION ===",
     convo,
@@ -193,7 +213,7 @@ const server = createServer(async (req, res) => {
   }
 
   try {
-    const reply = await callGateway(buildPrompt(chart, messages));
+    const reply = await callGateway(buildPrompt(chart, messages, payload.knowledge));
     if (!reply) return send(res, 502, { error: "The astrologer had nothing to say. Try rephrasing." });
     return send(res, 200, { reply });
   } catch (err) {

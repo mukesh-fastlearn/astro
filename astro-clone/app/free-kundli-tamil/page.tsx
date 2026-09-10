@@ -14,10 +14,12 @@ export default function FreeKundliPage() {
   const [chart, setChart] = useState<BirthChart | null>(null);
   const [meta, setMeta] = useState<Meta | null>(null);
   const [loading, setLoading] = useState(false);
+  const [place, setPlace] = useState<{ latitude: number; longitude: number } | null>(null);
 
   function handle(data: BirthData) {
     setLoading(true);
     setMeta({ name: data.name, date: data.date, time: data.time, place: data.place });
+    setPlace({ latitude: data.lat, longitude: data.lon });
     setTimeout(() => {
       try {
         setChart(calculateBirthChart({ date: data.date, time: data.time, latitude: data.lat, longitude: data.lon, tzOffset: "+05:30" }));
@@ -54,7 +56,7 @@ export default function FreeKundliPage() {
           <>
             <KundliResult chart={chart} meta={meta} onEdit={() => setChart(null)} />
             <div className="mt-12">
-              <ChartAnalysisPanels chart={chart} />
+              <ChartAnalysisPanels chart={chart} place={place ?? undefined} />
             </div>
             <div className="mt-12">
               <AstroChat chart={chart} meta={meta} />
