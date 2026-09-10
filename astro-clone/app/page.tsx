@@ -96,7 +96,7 @@ export default function Home() {
               <div className="absolute inset-4 border-4 border-dashed border-primary-gold/40 rounded-full animate-reverse-spin" />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-saffron/10 to-transparent rounded-full" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Astrologer Abhishek Soni" className="absolute inset-8 object-cover rounded-full shadow-2xl border-8 border-white" />
+              <img src="/hero.jpg" alt="Vedic astrologer offering celestial guidance" className="absolute inset-8 object-cover rounded-full shadow-2xl border-8 border-white" />
             </div>
           </div>
         </div>

@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fhoroscope-today-tamil\u002F[sign]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
