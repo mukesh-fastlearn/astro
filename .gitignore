@@ -21,3 +21,8 @@ scraper/Scrapegraph-ai/
 .DS_Store
 Thumbs.db
 *.log
+
+# Vertex AI gateway key - never commit
+VERTEX-GATEWAY-CREDENTIALS.txt
+*CREDENTIALS*.txt
+credentials.json

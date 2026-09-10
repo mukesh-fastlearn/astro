@@ -1,0 +1,23 @@
+[Unit]
+Description=Golden Era Astro - AI chat backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=astrochat
+WorkingDirectory=/opt/astro-chat
+EnvironmentFile=/opt/astro-chat/.env
+ExecStart=/usr/bin/node /opt/astro-chat/chat-server.mjs
+Restart=always
+RestartSec=3
+
+# hardening: the service only needs to make outbound HTTPS calls
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/astro-chat
+
+[Install]
+WantedBy=multi-user.target
