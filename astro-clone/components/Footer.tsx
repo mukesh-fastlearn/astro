@@ -78,7 +78,11 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {CONTACT.brand}. All Rights Reserved. <span className="mx-1">|</span> ஜோதிடம் மற்றும் ஜாதகம்</p>
+          <p className="text-center md:text-left">
+            © {new Date().getFullYear()} {CONTACT.brand}. All Rights Reserved.
+            <span className="mx-1">|</span>
+            <span className="text-slate-400">Powered by <strong className="text-primary-saffron">Rtech AI Labs</strong></span>
+          </p>
           <div className="flex flex-wrap gap-x-5 gap-y-2 justify-center">
             <Link href="/privacy" className="hover:text-primary-saffron">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-primary-saffron">Terms</Link>
