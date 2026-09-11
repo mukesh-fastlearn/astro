@@ -28,6 +28,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { user, balance, logout } = useAuth();
   const isAstro = user?.role === "astrologer" || user?.role === "admin";
+  const isAdmin = user?.role === "admin";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -79,6 +80,9 @@ export default function Navbar() {
               <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-saffron/10 text-primary-red text-sm font-bold">
                 <Wallet className="w-4 h-4" /> {balance}
               </span>
+              {isAdmin && (
+                <Link href="/admin" className="text-sm font-bold text-gray-700 hover:text-primary-saffron">Admin</Link>
+              )}
               <Link href={isAstro ? "/astrologer" : "/dashboard"}
                 className="px-5 py-2.5 saffron-button font-bold rounded-full text-sm uppercase tracking-widest shadow-md">
                 {isAstro ? "Panel" : "Dashboard"}
@@ -134,6 +138,10 @@ export default function Navbar() {
                     <Wallet className="w-4 h-4" /> {balance}
                   </span>
                 </div>
+                {isAdmin && (
+                  <Link href="/admin" onClick={() => setOpen(false)}
+                    className="block px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">Admin panel</Link>
+                )}
                 <Link href={isAstro ? "/astrologer" : "/dashboard"} onClick={() => setOpen(false)}
                   className="flex items-center gap-2 px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">
                   {isAstro ? <Inbox className="w-4 h-4" /> : <LayoutDashboard className="w-4 h-4" />}

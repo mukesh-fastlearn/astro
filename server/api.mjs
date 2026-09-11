@@ -16,9 +16,13 @@ import {
   saveAiMessage, listAiMessages, listAiSessions,
   SIGNUP_CREDITS, COST_PER_MESSAGE,
 } from "./db.mjs";
+import { initOtp, sendOtp, verifyOtp, markVerified, otpStatus, pruneOtp } from "./otp.mjs";
+import { overview, timeseries, listUsers, astrologerStats, recentLedger, topSpenders, systemInfo } from "./admin.mjs";
 
 initDb();
+initOtp();
 setInterval(pruneSessions, 6 * 3600_000).unref();
+setInterval(pruneOtp, 6 * 3600_000).unref();
 
 const COOKIE = "astro_session";
 const isProd = process.env.NODE_ENV !== "development";
@@ -80,7 +84,19 @@ function requireRole(req, res, role) {
   return u;
 }
 
+function requireAdmin(req, res) {
+  const u = requireAuth(req, res);
+  if (!u) return null;
+  if (u.role !== "admin") {
+    // Same 403 an ordinary user gets — do not confirm that an admin API exists.
+    send(res, 403, { error: "Not allowed." });
+    return null;
+  }
+  return u;
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^\+?[0-9]{8,15}$/;
 
 /**
  * Handle an API route. Returns true when the request was handled, so the
@@ -286,6 +302,132 @@ export async function handleApi(req, res, url, body) {
       if (!isOwner && !isAssigned && u.role !== "admin") return send(res, 403, { error: "Not allowed." }), true;
       closeConsultation(id);
       return send(res, 200, { ok: true }), true;
+    }
+  }
+
+  // --- OTP ------------------------------------------------------------------
+
+  if (p === "/api/otp/send" && m === "POST") {
+    const channel = body?.channel === "sms" ? "sms" : "email";
+    const rawTarget = String(body?.target || "").trim();
+    const target = channel === "email" ? rawTarget.toLowerCase() : rawTarget;
+
+    if (channel === "email" && !EMAIL_RE.test(target)) {
+      return send(res, 400, { error: "Enter a valid email address." }), true;
+    }
+    if (channel === "sms" && !PHONE_RE.test(target)) {
+      return send(res, 400, { error: "Enter a valid phone number with country code." }), true;
+    }
+
+    try {
+      const r = await sendOtp({ target, channel, purpose: body?.purpose || "verify" });
+      return send(res, 200, r), true;
+    } catch (e) {
+      if (e.message === "COOLDOWN") {
+        return send(res, 429, { error: `Please wait ${e.retryAfter}s before requesting another code.`, retryAfter: e.retryAfter }), true;
+      }
+      if (e.message === "RATE_LIMITED") {
+        return send(res, 429, { error: "Too many codes requested. Try again later." }), true;
+      }
+      console.error("[otp]", e.message);
+      return send(res, 502, { error: "Could not send the code. Check the provider configuration." }), true;
+    }
+  }
+
+  if (p === "/api/otp/verify" && m === "POST") {
+    const channel = body?.channel === "sms" ? "sms" : "email";
+    const rawTarget = String(body?.target || "").trim();
+    const target = channel === "email" ? rawTarget.toLowerCase() : rawTarget;
+    const r = verifyOtp({ target, code: body?.code, purpose: body?.purpose || "verify" });
+
+    if (!r.ok) {
+      const messages = {
+        NO_CODE: "Request a code first.",
+        EXPIRED: "That code has expired. Request a new one.",
+        TOO_MANY_ATTEMPTS: "Too many attempts. Request a new code.",
+        WRONG_CODE: "That code is not correct.",
+      };
+      return send(res, 400, { error: messages[r.reason] || "Verification failed.", attemptsLeft: r.attemptsLeft }), true;
+    }
+
+    // Attach the verification to the signed-in account when there is one.
+    const u = currentUser(req);
+    if (u) markVerified(u.id, channel);
+    return send(res, 200, { ok: true, channel, linked: !!u }), true;
+  }
+
+  if (p === "/api/otp/status" && m === "GET") {
+    return send(res, 200, otpStatus()), true;
+  }
+
+  // --- admin ----------------------------------------------------------------
+
+  if (p === "/api/admin/overview" && m === "GET") {
+    if (!requireAdmin(req, res)) return true;
+    return send(res, 200, { overview: overview(), system: systemInfo() }), true;
+  }
+
+  if (p === "/api/admin/timeseries" && m === "GET") {
+    if (!requireAdmin(req, res)) return true;
+    const days = Math.min(180, Math.max(7, Number(url.searchParams.get("days")) || 30));
+    return send(res, 200, { days, series: timeseries(days) }), true;
+  }
+
+  if (p === "/api/admin/users" && m === "GET") {
+    if (!requireAdmin(req, res)) return true;
+    const role = url.searchParams.get("role");
+    const q = url.searchParams.get("q");
+    const limit = Math.min(500, Number(url.searchParams.get("limit")) || 100);
+    const offset = Math.max(0, Number(url.searchParams.get("offset")) || 0);
+    return send(res, 200, listUsers({ role, q, limit, offset })), true;
+  }
+
+  if (p === "/api/admin/astrologers" && m === "GET") {
+    if (!requireAdmin(req, res)) return true;
+    return send(res, 200, { astrologers: astrologerStats() }), true;
+  }
+
+  if (p === "/api/admin/ledger" && m === "GET") {
+    if (!requireAdmin(req, res)) return true;
+    const limit = Math.min(500, Number(url.searchParams.get("limit")) || 100);
+    return send(res, 200, { ledger: recentLedger(limit), topSpenders: topSpenders(10) }), true;
+  }
+
+  // Role changes are an admin action, mirroring the CLI.
+  if (p === "/api/admin/role" && m === "POST") {
+    const admin = requireAdmin(req, res);
+    if (!admin) return true;
+    const { userId, role, bio, expertise } = body || {};
+    if (!["user", "astrologer", "admin"].includes(role)) {
+      return send(res, 400, { error: "Invalid role." }), true;
+    }
+    const target = findUserById(userId);
+    if (!target) return send(res, 404, { error: "User not found." }), true;
+    if (target.id === admin.id && role !== "admin") {
+      // Stops the last admin locking themselves out of the panel.
+      return send(res, 400, { error: "You cannot remove your own admin role." }), true;
+    }
+    db.prepare("UPDATE users SET role = ?, bio = COALESCE(?, bio), expertise = COALESCE(?, expertise) WHERE id = ?")
+      .run(role, bio ?? null, expertise ?? null, userId);
+    return send(res, 200, { ok: true, user: publicUser(findUserById(userId)) }), true;
+  }
+
+  if (p === "/api/admin/credits" && m === "POST") {
+    if (!requireAdmin(req, res)) return true;
+    const { userId, amount, reason } = body || {};
+    const n = Math.round(Number(amount));
+    if (!Number.isFinite(n) || n === 0 || Math.abs(n) > 100000) {
+      return send(res, 400, { error: "Amount must be a non-zero number." }), true;
+    }
+    if (!findUserById(userId)) return send(res, 404, { error: "User not found." }), true;
+    try {
+      const balance = applyCredits(userId, n, reason || "admin_adjustment");
+      return send(res, 200, { balance }), true;
+    } catch (e) {
+      if (e.message === "INSUFFICIENT_CREDITS") {
+        return send(res, 400, { error: "That would take the balance below zero." }), true;
+      }
+      throw e;
     }
   }
 

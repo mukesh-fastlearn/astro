@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { api, Consultation, LedgerRow } from "@/lib/api";
+import VerifyOtp from "@/components/VerifyOtp";
 
 const CARD = "bg-white rounded-[2rem] shadow-lg border border-gray-100 p-6 md:p-7";
 
@@ -115,6 +116,15 @@ export default function DashboardPage() {
           <p className="text-[11px] text-gray-400 mt-4">
             Recharging with real money is not connected yet — Razorpay is pending.
           </p>
+        </div>
+
+        {/* Verification */}
+        <div className={CARD}>
+          <h2 className="font-serif text-xl font-bold text-gray-900 mb-3">Verify your account</h2>
+          <div className="space-y-3">
+            <VerifyOtp channel="email" defaultTarget={user.email} onVerified={() => {}} />
+            <VerifyOtp channel="sms" defaultTarget={user.phone ?? ""} onVerified={() => {}} />
+          </div>
         </div>
 
         {/* Birth details */}
