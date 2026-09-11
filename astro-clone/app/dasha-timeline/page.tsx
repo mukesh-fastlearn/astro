@@ -5,6 +5,7 @@ import BirthDetailsForm, { BirthData } from "@/components/BirthDetailsForm";
 import { calculateBirthChart, BirthChart } from "@/lib/astrology/kundli";
 import CalcHero from "@/components/CalcHero";
 import DashaResult from "@/components/DashaResult";
+import RequireAuth from "@/components/RequireAuth";
 
 interface Meta {
   name: string;
@@ -13,7 +14,7 @@ interface Meta {
   place: string;
 }
 
-export default function DashaTimelinePage() {
+function DashaTimelinePageInner() {
   const [chart, setChart] = useState<BirthChart | null>(null);
   const [meta, setMeta] = useState<Meta | null>(null);
   const [loading, setLoading] = useState(false);
@@ -58,5 +59,17 @@ export default function DashaTimelinePage() {
         )}
       </div>
     </div>
+  );
+}
+
+
+export default function DashaTimelinePage() {
+  return (
+    <RequireAuth
+      title="Sign in for your dasha timeline"
+      reason="Create a free account to use this tool."
+    >
+      <DashaTimelinePageInner />
+    </RequireAuth>
   );
 }

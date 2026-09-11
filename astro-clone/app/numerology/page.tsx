@@ -4,6 +4,7 @@ import { useState } from "react";
 import { calculateNumerology, NumerologyResult, NumeroNumber } from "@/lib/astrology/numerology";
 import CalcHero from "@/components/CalcHero";
 import { Info } from "lucide-react";
+import RequireAuth from "@/components/RequireAuth";
 
 function NumberCard({ n, accent, bg, border }: { n: NumeroNumber; accent: string; bg: string; border: string }) {
   return (
@@ -44,7 +45,7 @@ function NumberCard({ n, accent, bg, border }: { n: NumeroNumber; accent: string
   );
 }
 
-export default function NumerologyPage() {
+function NumerologyPageInner() {
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [result, setResult] = useState<NumerologyResult | null>(null);
@@ -106,5 +107,17 @@ export default function NumerologyPage() {
         )}
       </div>
     </div>
+  );
+}
+
+
+export default function NumerologyPage() {
+  return (
+    <RequireAuth
+      title="Sign in for numerology"
+      reason="Create a free account to use this calculator."
+    >
+      <NumerologyPageInner />
+    </RequireAuth>
   );
 }

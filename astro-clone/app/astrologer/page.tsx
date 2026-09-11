@@ -3,7 +3,7 @@
 import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Loader2, ArrowLeft, Inbox, Hand, CheckCircle2, AlertCircle } from "lucide-react";
+import { Loader2, ArrowLeft, Inbox, Hand, CheckCircle2, AlertCircle, MessagesSquare, Wallet, Circle } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import ConsultThread from "@/components/ConsultThread";
 import { api, ApiError, BirthProfile, Consultation, ConsultMessage } from "@/lib/api";
@@ -14,7 +14,8 @@ const CARD = "bg-white rounded-[2rem] shadow-lg border border-gray-100 p-6 md:p-
 function AstrologerInner() {
   const params = useSearchParams();
   const id = params.get("id");
-  const { user, loading } = useAuth();
+  const view = params.get("view");
+  const { user, loading, balance, logout } = useAuth();
 
   const [list, setList] = useState<Consultation[]>([]);
   const [detail, setDetail] = useState<{
@@ -136,6 +137,130 @@ function AstrologerInner() {
   const unclaimed = list.filter((c) => !c.astrologer_id);
   const mine = list.filter((c) => c.astrologer_id === user.id);
 
+  // Distinct clients, grouped from this astrologer's own consultations.
+  const clients = Array.from(
+    mine.reduce((m, c) => {
+      if (!m.has(c.user_id)) {
+        m.set(c.user_id, {
+          id: c.user_id,
+          name: c.user_name ?? "Client",
+          email: c.user_email ?? "",
+          consults: [] as Consultation[],
+        });
+      }
+      m.get(c.user_id)!.consults.push(c);
+      return m;
+    }, new Map<string, { id: string; name: string; email: string; consults: Consultation[] }>()).values()
+  );
+
+  if (view === "clients") {
+    return (
+      <Shell title="Clients" subtitle={clients.length + " people you are advising"}>
+        {clients.length === 0 ? (
+          <div className={CARD}><p className="text-sm text-gray-500">No clients yet. Claim an inquiry to start.</p></div>
+        ) : (
+          <div className="space-y-3">
+            {clients.map((cl) => (
+              <div key={cl.id} className={CARD}>
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary-saffron to-primary-red text-white font-serif font-bold flex items-center justify-center shrink-0">
+                    {cl.name.charAt(0)}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-bold text-gray-900 truncate">{cl.name}</p>
+                    <p className="text-xs text-gray-500 truncate">{cl.email}</p>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-1.5">
+                  {cl.consults.map((c) => (
+                    <Link key={c.id} href={"/astrologer?id=" + c.id}
+                      className="flex items-center justify-between gap-2 text-sm p-2.5 rounded-xl border border-gray-100 hover:border-primary-saffron">
+                      <span className="truncate text-gray-700">{c.subject}</span>
+                      <span className="text-[10px] font-bold uppercase text-gray-400 shrink-0">{c.status}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Shell>
+    );
+  }
+
+  if (view === "chats") {
+    const active = mine.filter((c) => c.status !== "closed");
+    return (
+      <Shell title="Chats" subtitle={active.length + " open conversations"}>
+        {active.length === 0 ? (
+          <div className={CARD}><p className="text-sm text-gray-500">No open chats. New inquiries appear under Inquiries.</p></div>
+        ) : (
+          <div className={CARD}>
+            <div className="space-y-2">
+              {active.map((c) => (
+                <Link key={c.id} href={"/astrologer?id=" + c.id}
+                  className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-primary-saffron transition">
+                  <div className="w-10 h-10 rounded-full bg-primary-cream text-primary-red font-serif font-bold flex items-center justify-center shrink-0">
+                    {(c.user_name ?? "?").charAt(0)}
+                  </div>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-bold text-gray-900 text-sm truncate">{c.user_name}</span>
+                    <span className="block text-xs text-gray-500 truncate">{c.subject}</span>
+                  </span>
+                  <MessagesSquare className="w-4 h-4 text-gray-300 shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </Shell>
+    );
+  }
+
+  if (view === "profile") {
+    return (
+      <Shell title="Profile" subtitle={user.email}>
+        <div className={CARD}>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-saffron to-primary-red text-white font-serif text-2xl font-bold flex items-center justify-center shrink-0">
+              {user.name.charAt(0)}
+            </div>
+            <div className="min-w-0">
+              <p className="font-serif text-xl font-bold text-gray-900 truncate">{user.name}</p>
+              <p className="text-xs text-primary-red font-bold uppercase tracking-wider">{user.role}</p>
+              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 mt-1">
+                <Circle className="w-2 h-2 fill-emerald-600" /> {user.isAvailable ? "Available" : "Busy"}
+              </span>
+            </div>
+          </div>
+
+          {user.expertise && (
+            <p className="mt-4 text-sm"><span className="text-gray-500">Expertise: </span><span className="font-bold text-gray-900">{user.expertise}</span></p>
+          )}
+          {user.bio && <p className="mt-1 text-sm text-gray-600">{user.bio}</p>}
+
+          <div className="grid grid-cols-2 gap-3 mt-5">
+            <Stat label="Clients" value={clients.length} />
+            <Stat label="Consultations" value={mine.length} />
+          </div>
+
+          <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100 text-sm">
+            <span className="flex items-center gap-1.5 text-gray-600"><Wallet className="w-4 h-4" /> Wallet</span>
+            <span className="font-bold text-gray-900">{balance} credits</span>
+          </div>
+          <p className="text-[11px] text-gray-400 mt-1">
+            Astrologer accounts are not charged credits for the AI assistant.
+          </p>
+
+          <button onClick={logout}
+            className="w-full mt-5 px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold uppercase text-sm tracking-wider">
+            Sign out
+          </button>
+        </div>
+      </Shell>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-vedic-gradient pt-28 pb-16 px-4">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -155,6 +280,29 @@ function AstrologerInner() {
         <Section title="My consultations" icon={<CheckCircle2 className="w-5 h-5 text-primary-red" />} rows={mine}
           empty="You have not claimed any consultations yet." />
       </div>
+    </div>
+  );
+}
+
+function Shell({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-vedic-gradient pt-24 pb-8 px-4">
+      <div className="max-w-4xl mx-auto space-y-5">
+        <div>
+          <h1 className="font-serif text-2xl md:text-3xl font-bold text-gray-900">{title}</h1>
+          {subtitle && <p className="text-gray-600 text-sm font-medium mt-0.5">{subtitle}</p>}
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-2xl border border-gray-100 p-4 text-center">
+      <div className="font-serif text-2xl font-bold text-primary-red">{value}</div>
+      <div className="text-[10px] uppercase tracking-widest text-gray-500 mt-0.5">{label}</div>
     </div>
   );
 }

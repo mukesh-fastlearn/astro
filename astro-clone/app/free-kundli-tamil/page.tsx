@@ -10,10 +10,11 @@ import ChartAnalysisPanels from "@/components/ChartAnalysisPanels";
 import { useAuth } from "@/components/AuthProvider";
 import { api } from "@/lib/api";
 import { buildChartContext } from "@/lib/astrology/context";
+import RequireAuth from "@/components/RequireAuth";
 
 interface Meta { name: string; date: string; time: string; place: string; }
 
-export default function FreeKundliPage() {
+function FreeKundliPageInner() {
   const [chart, setChart] = useState<BirthChart | null>(null);
   const [meta, setMeta] = useState<Meta | null>(null);
   const [loading, setLoading] = useState(false);
@@ -85,5 +86,17 @@ export default function FreeKundliPage() {
         )}
       </div>
     </div>
+  );
+}
+
+
+export default function FreeKundliPage() {
+  return (
+    <RequireAuth
+      title="Sign in to generate your kundli"
+      reason="Your chart is saved to your profile, so astrologers and the AI can read it."
+    >
+      <FreeKundliPageInner />
+    </RequireAuth>
   );
 }

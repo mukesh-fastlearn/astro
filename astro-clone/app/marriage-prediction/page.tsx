@@ -5,8 +5,9 @@ import BirthDetailsForm, { BirthData } from "@/components/BirthDetailsForm";
 import { analyzeMarriage, MarriageAnalysis } from "@/lib/astrology/marriage";
 import CalcHero from "@/components/CalcHero";
 import { Users, ShieldAlert, Clock, Sparkles } from "lucide-react";
+import RequireAuth from "@/components/RequireAuth";
 
-export default function MarriagePredictionPage() {
+function MarriagePredictionPageInner() {
   const [analysis, setAnalysis] = useState<MarriageAnalysis | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -171,5 +172,17 @@ function Field({ label, value }: { label: string; value: string }) {
       <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">{label}</h4>
       <p className="text-gray-800 font-medium">{value}</p>
     </div>
+  );
+}
+
+
+export default function MarriagePredictionPage() {
+  return (
+    <RequireAuth
+      title="Sign in for marriage analysis"
+      reason="Create a free account to use this tool."
+    >
+      <MarriagePredictionPageInner />
+    </RequireAuth>
   );
 }

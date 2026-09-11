@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/components/AuthProvider";
+import MobileTabBar from "@/components/MobileTabBar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
+            <MobileTabBar />
           </div>
         </AuthProvider>
       </body>

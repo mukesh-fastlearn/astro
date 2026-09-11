@@ -5,8 +5,9 @@ import BirthDetailsForm, { BirthData } from "@/components/BirthDetailsForm";
 import { calculateGunaMilan, MatchResult } from "@/lib/astrology/matching";
 import CalcHero from "@/components/CalcHero";
 import { Sparkles } from "lucide-react";
+import RequireAuth from "@/components/RequireAuth";
 
-export default function KundliMatchingPage() {
+function KundliMatchingPageInner() {
   const [step, setStep] = useState(1);
   const [boy, setBoy] = useState<BirthData | null>(null);
   const [girl, setGirl] = useState<BirthData | null>(null);
@@ -156,5 +157,17 @@ export default function KundliMatchingPage() {
         )}
       </div>
     </div>
+  );
+}
+
+
+export default function KundliMatchingPage() {
+  return (
+    <RequireAuth
+      title="Sign in for Guna Milan"
+      reason="Matching results are tied to your account so you can revisit them."
+    >
+      <KundliMatchingPageInner />
+    </RequireAuth>
   );
 }

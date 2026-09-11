@@ -2,7 +2,10 @@
 
 import { BirthChart, House } from "@/lib/astrology/kundli";
 import { ZODIAC_SIGNS } from "@/lib/astrology/constants";
-import { Download, Star, Pencil } from "lucide-react";
+import { Download, Star, Pencil, FileText, FileJson, Printer } from "lucide-react";
+import { useState } from "react";
+import { buildTextReport, downloadText, downloadJson, safeFilename } from "@/lib/download";
+import { buildChartContext } from "@/lib/astrology/context";
 import VargaExplorer from "@/components/VargaExplorer";
 
 const ABBR: Record<string, string> = {
@@ -82,6 +85,7 @@ const CHART_CARDS = [
 ];
 
 export default function KundliResult({ chart, meta, onEdit, hideActions }: { chart: BirthChart; meta: Meta; onEdit: () => void; hideActions?: boolean }) {
+  const [exportOpen, setExportOpen] = useState(false);
   const sun = chart.planetaryDetails.find((p) => p.name === "Sun");
 
   return (
@@ -105,9 +109,33 @@ export default function KundliResult({ chart, meta, onEdit, hideActions }: { cha
             <span className="flex items-center gap-1"><span className="text-primary-saffron">📍</span> {meta.place}</span>
           </div>
         </div>
-        <button onClick={() => window.print()} className="justify-center flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 text-gray-700 font-bold hover:border-primary-saffron hover:text-primary-saffron shadow-sm transition-all">
-          <Download size={18} /> Download
-        </button>
+        <div className="relative shrink-0">
+          <button
+            onClick={() => setExportOpen((v) => !v)}
+            className="justify-center flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 text-gray-700 font-bold hover:border-primary-saffron hover:text-primary-saffron shadow-sm transition-all"
+          >
+            <Download size={18} /> Download
+          </button>
+          {exportOpen && (
+            <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-20 print:hidden">
+              <button onClick={() => { setExportOpen(false); window.print(); }}
+                className="w-full text-left px-4 py-3 hover:bg-orange-50 flex items-center gap-2 text-sm font-bold text-gray-700 border-b border-gray-50">
+                <Printer className="w-4 h-4 text-primary-saffron" />
+                <span>PDF / Print<span className="block text-[10px] font-medium text-gray-500">Choose &ldquo;Save as PDF&rdquo;</span></span>
+              </button>
+              <button onClick={() => { setExportOpen(false); downloadText(`${safeFilename(meta.name || "kundli")}-kundli.txt`, buildTextReport(chart, meta)); }}
+                className="w-full text-left px-4 py-3 hover:bg-orange-50 flex items-center gap-2 text-sm font-bold text-gray-700 border-b border-gray-50">
+                <FileText className="w-4 h-4 text-primary-saffron" />
+                <span>Text report<span className="block text-[10px] font-medium text-gray-500">Positions, yogas, remedies</span></span>
+              </button>
+              <button onClick={() => { setExportOpen(false); downloadJson(`${safeFilename(meta.name || "kundli")}-chart.json`, buildChartContext(chart, meta)); }}
+                className="w-full text-left px-4 py-3 hover:bg-orange-50 flex items-center gap-2 text-sm font-bold text-gray-700">
+                <FileJson className="w-4 h-4 text-primary-saffron" />
+                <span>JSON data<span className="block text-[10px] font-medium text-gray-500">All computed values</span></span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Two-column grid */}

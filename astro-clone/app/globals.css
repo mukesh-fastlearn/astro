@@ -105,3 +105,28 @@ body { overflow-x: hidden; }
 
 /* Smooth momentum scrolling for the horizontal tab strips. */
 .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+
+
+/* ---------- PRINT / PDF EXPORT ---------- */
+@media print {
+  /* Chrome and Safari need this to paint the saffron gradients and chart fills. */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  /* Screen furniture has no place in a saved chart. */
+  nav, footer, .print\:hidden { display: none !important; }
+
+  body { background: #fff !important; padding-top: 0 !important; }
+
+  /* Cards become plain bordered blocks so they do not waste a page each. */
+  .shadow-lg, .shadow-xl, .shadow-md { box-shadow: none !important; }
+  .rounded-\[2rem\] { border-radius: 8px !important; }
+
+  /* Never split a chart or a table row across pages. */
+  svg, table, .break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+
+  /* Expand scroll containers — a printed page cannot be scrolled. */
+  .overflow-y-auto, .overflow-x-auto { overflow: visible !important; max-height: none !important; }
+
+  @page { margin: 14mm; }
+}
