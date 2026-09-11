@@ -321,7 +321,11 @@ const server = createServer(async (req, res) => {
   const sessionId = String(payload.sessionId || "").slice(0, 64) || newId();
   let charged = false;
 
-  if (user) {
+  // Astrologers use the AI as a working tool while advising a client, so they
+  // are not billed for it — only end users are.
+  const billable = user && user.role !== "astrologer" && user.role !== "admin";
+
+  if (billable) {
     try {
       applyCredits(user.id, -COST_PER_MESSAGE, "ai_chat", sessionId);
       charged = true;

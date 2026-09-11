@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -13,12 +13,27 @@ export const metadata: Metadata = {
   title: "Golden Era Astro — Vedic Astrology, Kundli & Free Tools",
   description:
     "Free Vedic astrology tools: Kundli birth chart, Guna Milan compatibility, numerology, Vimshottari dasha timeline, marriage prediction and daily horoscopes — computed from real planetary positions.",
+  appleWebApp: {
+    capable: true,
+    title: "Golden Era Astro",
+    statusBarStyle: "default",
+  },
   openGraph: {
     title: "Golden Era Astro — Vedic Astrology & Free Tools",
     description: "Free Vedic astrology calculators built on real astronomical data.",
     images: ["/logo.png"],
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Zoom stays enabled deliberately — disabling it breaks accessibility for
+  // anyone who needs to enlarge text.
+  maximumScale: 5,
+  themeColor: "#c1121f",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -6,6 +6,14 @@ import { CONTACT } from "@/lib/nav";
 import { Menu, X, Wallet, LogOut, LayoutDashboard, Inbox } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 
+const MAIN = [
+  { label: "Home", href: "/" },
+  { label: "Talk to an Astrologer", href: "/astrologers" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/tamil-astrologer" },
+  { label: "Contact", href: "/contact" },
+];
+
 const TOOLS = [
   { label: "Free Kundli", href: "/free-kundli-tamil" },
   { label: "Marriage Prediction", href: "/marriage-prediction" },
@@ -62,6 +70,7 @@ export default function Navbar() {
               ))}
             </div>
           </div>
+          <Link href="/astrologers" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">Astrologers</Link>
           <Link href="/services" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">Services</Link>
           <Link href="/tamil-astrologer" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">About</Link>
           <Link href="/contact" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">Contact</Link>
@@ -99,39 +108,54 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden mt-3 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 space-y-1">
-          <Link href="/" className="block px-4 py-2.5 font-bold text-primary-red" onClick={() => setOpen(false)}>Home</Link>
-          {TOOLS.map((t) => (
-            <Link key={t.href} href={t.href} className="block px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg" onClick={() => setOpen(false)}>
+        <div className="md:hidden mt-3 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 max-h-[75vh] overflow-y-auto overscroll-contain">
+          <p className="px-4 pt-1 pb-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">Pages</p>
+          {MAIN.map((t) => (
+            <Link key={t.href} href={t.href} onClick={() => setOpen(false)}
+              className="block px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg active:bg-orange-100">
               {t.label}
             </Link>
           ))}
-          <Link href="/services" className="block px-4 py-2.5 font-bold text-gray-700" onClick={() => setOpen(false)}>Services</Link>
-          <Link href="/tamil-astrologer" className="block px-4 py-2.5 font-bold text-gray-700" onClick={() => setOpen(false)}>About</Link>
-          <Link href="/contact" className="block px-4 py-2.5 font-bold text-gray-700" onClick={() => setOpen(false)}>Contact</Link>
+
+          <p className="px-4 pt-3 pb-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 border-t border-gray-100 mt-2">Free tools</p>
+          {TOOLS.map((t) => (
+            <Link key={t.href} href={t.href} onClick={() => setOpen(false)}
+              className="block px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg active:bg-orange-100">
+              {t.label}
+            </Link>
+          ))}
+
           <div className="border-t border-gray-100 mt-2 pt-2">
             {user ? (
               <>
+                <div className="px-4 py-2 flex items-center justify-between">
+                  <span className="text-sm font-bold text-gray-900 truncate">{user.name}</span>
+                  <span className="flex items-center gap-1 text-primary-red text-sm font-bold shrink-0">
+                    <Wallet className="w-4 h-4" /> {balance}
+                  </span>
+                </div>
                 <Link href={isAstro ? "/astrologer" : "/dashboard"} onClick={() => setOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">
+                  className="flex items-center gap-2 px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">
                   {isAstro ? <Inbox className="w-4 h-4" /> : <LayoutDashboard className="w-4 h-4" />}
                   {isAstro ? "Astrologer panel" : "Dashboard"}
                 </Link>
                 {!isAstro && (
                   <Link href="/consult" onClick={() => setOpen(false)}
-                    className="block px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">Consult an astrologer</Link>
+                    className="block px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">My consultations</Link>
                 )}
                 <button onClick={() => { setOpen(false); logout(); }}
-                  className="w-full text-left flex items-center gap-2 px-4 py-2.5 font-bold text-gray-500 hover:bg-orange-50 rounded-lg">
+                  className="w-full text-left flex items-center gap-2 px-4 py-3 font-bold text-gray-500 hover:bg-orange-50 rounded-lg">
                   <LogOut className="w-4 h-4" /> Sign out
                 </button>
               </>
             ) : (
               <>
                 <Link href="/login" onClick={() => setOpen(false)}
-                  className="block px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">Sign in</Link>
+                  className="block px-4 py-3 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">Sign in</Link>
                 <Link href="/register" onClick={() => setOpen(false)}
-                  className="block text-center mt-2 px-6 py-3 saffron-button font-bold rounded-full text-sm uppercase tracking-widest">Sign up — 501 free credits</Link>
+                  className="block text-center mt-2 px-6 py-3.5 saffron-button font-bold rounded-full text-sm uppercase tracking-widest">
+                  Sign up — 501 free credits
+                </Link>
               </>
             )}
           </div>

@@ -79,3 +79,29 @@ body {
 .animate-reverse-spin {
   animation: reverse-spin 18s linear infinite;
 }
+
+
+/* ---------- MOBILE BASELINE ---------- */
+html { -webkit-text-size-adjust: 100%; }
+
+/* Wide tables and chart grids must scroll inside their own box, never push
+   the page sideways. */
+body { overflow-x: hidden; }
+
+/* Respect notches on phones that have them. */
+@supports (padding: max(0px)) {
+  .safe-x { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+}
+
+/* Inputs below 16px make iOS Safari zoom on focus; keep them at 16px. */
+@media (max-width: 640px) {
+  input, select, textarea { font-size: 16px; }
+}
+
+/* Give interactive elements a comfortable touch target on coarse pointers. */
+@media (pointer: coarse) {
+  button, a[role="button"], .saffron-button { min-height: 44px; }
+}
+
+/* Smooth momentum scrolling for the horizontal tab strips. */
+.overflow-x-auto { -webkit-overflow-scrolling: touch; }

@@ -81,17 +81,19 @@ const CHART_CARDS = [
   { id: "D10", label: "Dashamsha Chart (D10)", sub: "Career & Status" },
 ];
 
-export default function KundliResult({ chart, meta, onEdit }: { chart: BirthChart; meta: Meta; onEdit: () => void }) {
+export default function KundliResult({ chart, meta, onEdit, hideActions }: { chart: BirthChart; meta: Meta; onEdit: () => void; hideActions?: boolean }) {
   const sun = chart.planetaryDetails.find((p) => p.name === "Sun");
 
   return (
     <div>
-      {/* Edit button */}
-      <div className="max-w-3xl mx-auto mb-12 text-center">
-        <button onClick={onEdit} className="px-8 py-3 rounded-2xl border-2 border-gray-200 text-gray-700 font-bold hover:border-primary-saffron hover:text-primary-saffron hover:bg-orange-50/50 transition-all shadow-sm flex items-center gap-2 mx-auto">
-          <Pencil className="w-4 h-4" /> Edit Birth Details
-        </button>
-      </div>
+      {/* Edit button — hidden when an astrologer is viewing a client's chart */}
+      {!hideActions && (
+        <div className="max-w-3xl mx-auto mb-12 text-center">
+          <button onClick={onEdit} className="px-8 py-3 rounded-2xl border-2 border-gray-200 text-gray-700 font-bold hover:border-primary-saffron hover:text-primary-saffron hover:bg-orange-50/50 transition-all shadow-sm flex items-center gap-2 mx-auto">
+            <Pencil className="w-4 h-4" /> Edit Birth Details
+          </button>
+        </div>
+      )}
 
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm">

@@ -3,82 +3,13 @@
 import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Loader2, ArrowLeft, Inbox, Hand, CheckCircle2, AlertCircle, ChevronDown } from "lucide-react";
+import { Loader2, ArrowLeft, Inbox, Hand, CheckCircle2, AlertCircle } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import ConsultThread from "@/components/ConsultThread";
 import { api, ApiError, BirthProfile, Consultation, ConsultMessage } from "@/lib/api";
+import ClientChartView from "@/components/ClientChartView";
 
 const CARD = "bg-white rounded-[2rem] shadow-lg border border-gray-100 p-6 md:p-7";
-
-/** The stored chart is opaque JSON here — render whatever shape it has. */
-function ChartSummary({ chart, profile }: { chart: unknown; profile: BirthProfile | null }) {
-  const [open, setOpen] = useState(false);
-  const c = (chart ?? {}) as Record<string, unknown>;
-  const planets = Array.isArray(c.planets) ? (c.planets as Record<string, unknown>[]) : [];
-  const dasha = Array.isArray(c.currentDasha) ? (c.currentDasha as Record<string, unknown>[]) : [];
-
-  return (
-    <div className={CARD}>
-      <h2 className="font-serif text-xl font-bold text-gray-900 mb-4">Client chart</h2>
-
-      {profile && (
-        <div className="grid grid-cols-3 gap-2 text-sm mb-4">
-          <div><span className="block text-[10px] uppercase tracking-wider text-gray-500">Date</span><span className="font-bold">{profile.dob}</span></div>
-          <div><span className="block text-[10px] uppercase tracking-wider text-gray-500">Time</span><span className="font-bold">{profile.tob}</span></div>
-          <div><span className="block text-[10px] uppercase tracking-wider text-gray-500">Place</span><span className="font-bold truncate">{profile.pob}</span></div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-3 gap-2 text-sm border-t border-gray-100 pt-4">
-        <div><span className="block text-[10px] uppercase tracking-wider text-gray-500">Lagna</span><span className="font-bold text-primary-red">{String(c.ascendant ?? "—")}</span></div>
-        <div><span className="block text-[10px] uppercase tracking-wider text-gray-500">Moon</span><span className="font-bold text-primary-red">{String(c.moonSign ?? "—")}</span></div>
-        <div><span className="block text-[10px] uppercase tracking-wider text-gray-500">Nakshatra</span><span className="font-bold text-primary-red truncate">{String(c.birthNakshatra ?? "—")}</span></div>
-      </div>
-
-      {dasha.length > 0 && (
-        <p className="mt-4 text-sm text-gray-700">
-          <span className="font-bold">Running:</span>{" "}
-          {dasha.map((d) => `${d.planet} ${d.level}`).join(" › ")}
-        </p>
-      )}
-
-      {planets.length > 0 && (
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-[10px] uppercase tracking-widest text-gray-500 border-b border-gray-100">
-                <th className="py-1.5">Planet</th><th>Sign</th><th>House</th><th>Nakshatra</th>
-              </tr>
-            </thead>
-            <tbody>
-              {planets.map((p, i) => (
-                <tr key={i} className="border-b border-gray-50">
-                  <td className="py-1.5 font-bold text-gray-800">
-                    {String(p.name)}{p.retrograde ? <span className="text-primary-red text-xs ml-1">R</span> : null}
-                  </td>
-                  <td className="text-gray-600">{String(p.sign ?? "")}</td>
-                  <td className="text-gray-600">{String(p.house ?? "")}</td>
-                  <td className="text-gray-600 text-xs">{String(p.nakshatra ?? "")}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      <button onClick={() => setOpen((v) => !v)}
-        className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary-red hover:underline">
-        <ChevronDown className={`w-3.5 h-3.5 transition ${open ? "rotate-180" : ""}`} />
-        {open ? "Hide" : "Show"} full computed data
-      </button>
-      {open && (
-        <pre className="mt-3 max-h-80 overflow-auto bg-gray-50 rounded-xl p-3 text-[10px] leading-relaxed text-gray-700">
-          {JSON.stringify(chart, null, 2)}
-        </pre>
-      )}
-    </div>
-  );
-}
 
 function AstrologerInner() {
   const params = useSearchParams();
@@ -179,13 +110,23 @@ function AstrologerInner() {
             </div>
           )}
 
+          {/* Chat first on mobile so the astrologer can reply without scrolling
+              past the whole chart; side by side from lg upward. */}
           <div className="grid lg:grid-cols-2 gap-4 items-start">
-            <ChartSummary chart={detail.userChart?.chart ?? null} profile={detail.userBirthProfile} />
-            <ConsultThread
-              consultationId={c.id}
-              consultation={c}
-              initialMessages={detail.messages}
-            />
+            <div className="order-2 lg:order-1">
+              <ClientChartView
+                profile={detail.userBirthProfile}
+                clientName={c.user_name || "Client"}
+                snapshotAt={detail.userChart ? (detail.userChart as { computedAt?: string }).computedAt : undefined}
+              />
+            </div>
+            <div className="order-1 lg:order-2 lg:sticky lg:top-24">
+              <ConsultThread
+                consultationId={c.id}
+                consultation={c}
+                initialMessages={detail.messages}
+              />
+            </div>
           </div>
         </div>
       </div>
