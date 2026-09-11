@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://astro.rtechailabs.com"),
+  metadataBase: new URL("https://goldeneraastro.com"),
   title: "Golden Era Astro — Vedic Astrology, Kundli & Free Tools",
   description:
     "Free Vedic astrology tools: Kundli birth chart, Guna Milan compatibility, numerology, Vimshottari dasha timeline, marriage prediction and daily horoscopes — computed from real planetary positions.",

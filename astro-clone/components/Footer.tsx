@@ -79,9 +79,13 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} {CONTACT.brand}. All Rights Reserved. <span className="mx-1">|</span> ஜோதிடம் மற்றும் ஜாதகம்</p>
-          <div className="flex gap-5">
-            <span className="hover:text-primary-saffron cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-primary-saffron cursor-pointer">Terms of Service</span>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 justify-center">
+            <Link href="/privacy" className="hover:text-primary-saffron">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-primary-saffron">Terms</Link>
+            <Link href="/refund" className="hover:text-primary-saffron">Refund Policy</Link>
+            <Link href="/delivery" className="hover:text-primary-saffron">Delivery</Link>
+            <Link href="/pricing" className="hover:text-primary-saffron">Pricing</Link>
+            <Link href="/contact" className="hover:text-primary-saffron">Contact</Link>
           </div>
         </div>
       </div>

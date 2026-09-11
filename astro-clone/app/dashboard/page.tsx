@@ -24,12 +24,17 @@ export default function DashboardPage() {
   const [ledger, setLedger] = useState<LedgerRow[]>([]);
   const [consults, setConsults] = useState<Consultation[]>([]);
   const [aiSessions, setAiSessions] = useState<{ session_id: string; messages: number; first_question: string }[]>([]);
+  const [otpReady, setOtpReady] = useState(false);
 
   useEffect(() => {
     if (!user) return;
     api.wallet().then((w) => setLedger(w.ledger)).catch(() => {});
     api.consultations().then((c) => setConsults(c.consultations)).catch(() => {});
     api.aiSessions().then((s) => setAiSessions(s.sessions)).catch(() => {});
+    fetch("/api/otp/status", { credentials: "same-origin" })
+      .then((r) => r.json())
+      .then((r) => setOtpReady(!!r.configured))
+      .catch(() => setOtpReady(false));
   }, [user]);
 
   if (loading) {
@@ -118,14 +123,19 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Verification */}
-        <div className={CARD}>
-          <h2 className="font-serif text-xl font-bold text-gray-900 mb-3">Verify your account</h2>
-          <div className="space-y-3">
-            <VerifyOtp channel="email" defaultTarget={user.email} onVerified={() => {}} />
-            <VerifyOtp channel="sms" defaultTarget={user.phone ?? ""} onVerified={() => {}} />
+        {/* Verification — only shown when a provider can actually deliver a code.
+            Offering "verify your email" with no way to send one is worse than
+            not offering it at all. */}
+        {otpReady && (
+          <div className={CARD}>
+            <h2 className="font-serif text-xl font-bold text-gray-900 mb-3">Verify your account</h2>
+            <p className="text-sm text-gray-600 mb-3">Optional, but it helps us recover your account.</p>
+            <div className="space-y-3">
+              <VerifyOtp channel="email" defaultTarget={user.email} onVerified={() => {}} />
+              <VerifyOtp channel="sms" defaultTarget={user.phone ?? ""} onVerified={() => {}} />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Birth details */}
         <div className={CARD}>
