@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CONTACT } from "@/lib/nav";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Wallet, LogOut, LayoutDashboard, Inbox } from "lucide-react";
+import { useAuth } from "@/components/AuthProvider";
 
 const TOOLS = [
   { label: "Free Kundli", href: "/free-kundli-tamil" },
@@ -17,6 +18,8 @@ const TOOLS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user, balance, logout } = useAuth();
+  const isAstro = user?.role === "astrologer" || user?.role === "admin";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -62,12 +65,37 @@ export default function Navbar() {
           <Link href="/services" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">Services</Link>
           <Link href="/tamil-astrologer" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">About</Link>
           <Link href="/contact" className="text-sm font-bold transition-colors hover:text-primary-saffron text-gray-700">Contact</Link>
-          <Link href="/free-kundli-tamil" className="px-6 py-2.5 saffron-button font-bold rounded-full text-sm uppercase tracking-widest shadow-md ml-2">Get Kundli</Link>
+          {user ? (
+            <div className="flex items-center gap-3 ml-2">
+              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-saffron/10 text-primary-red text-sm font-bold">
+                <Wallet className="w-4 h-4" /> {balance}
+              </span>
+              <Link href={isAstro ? "/astrologer" : "/dashboard"}
+                className="px-5 py-2.5 saffron-button font-bold rounded-full text-sm uppercase tracking-widest shadow-md">
+                {isAstro ? "Panel" : "Dashboard"}
+              </Link>
+              <button onClick={logout} className="text-gray-500 hover:text-primary-red p-2" aria-label="Sign out">
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3 ml-2">
+              <Link href="/login" className="text-sm font-bold text-gray-700 hover:text-primary-saffron">Sign in</Link>
+              <Link href="/register" className="px-6 py-2.5 saffron-button font-bold rounded-full text-sm uppercase tracking-widest shadow-md">Sign up free</Link>
+            </div>
+          )}
         </div>
 
-        <button className="md:hidden text-primary-red p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+        <div className="md:hidden flex items-center gap-2">
+          {user && (
+            <span className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-saffron/10 text-primary-red text-xs font-bold">
+              <Wallet className="w-3.5 h-3.5" /> {balance}
+            </span>
+          )}
+        <button className="text-primary-red p-2" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
+        </div>
       </div>
 
       {open && (
@@ -81,7 +109,32 @@ export default function Navbar() {
           <Link href="/services" className="block px-4 py-2.5 font-bold text-gray-700" onClick={() => setOpen(false)}>Services</Link>
           <Link href="/tamil-astrologer" className="block px-4 py-2.5 font-bold text-gray-700" onClick={() => setOpen(false)}>About</Link>
           <Link href="/contact" className="block px-4 py-2.5 font-bold text-gray-700" onClick={() => setOpen(false)}>Contact</Link>
-          <Link href="/free-kundli-tamil" className="block text-center mt-2 px-6 py-3 saffron-button font-bold rounded-full text-sm uppercase tracking-widest" onClick={() => setOpen(false)}>Get Kundli</Link>
+          <div className="border-t border-gray-100 mt-2 pt-2">
+            {user ? (
+              <>
+                <Link href={isAstro ? "/astrologer" : "/dashboard"} onClick={() => setOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">
+                  {isAstro ? <Inbox className="w-4 h-4" /> : <LayoutDashboard className="w-4 h-4" />}
+                  {isAstro ? "Astrologer panel" : "Dashboard"}
+                </Link>
+                {!isAstro && (
+                  <Link href="/consult" onClick={() => setOpen(false)}
+                    className="block px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">Consult an astrologer</Link>
+                )}
+                <button onClick={() => { setOpen(false); logout(); }}
+                  className="w-full text-left flex items-center gap-2 px-4 py-2.5 font-bold text-gray-500 hover:bg-orange-50 rounded-lg">
+                  <LogOut className="w-4 h-4" /> Sign out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setOpen(false)}
+                  className="block px-4 py-2.5 font-bold text-gray-700 hover:bg-orange-50 rounded-lg">Sign in</Link>
+                <Link href="/register" onClick={() => setOpen(false)}
+                  className="block text-center mt-2 px-6 py-3 saffron-button font-bold rounded-full text-sm uppercase tracking-widest">Sign up — 501 free credits</Link>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>

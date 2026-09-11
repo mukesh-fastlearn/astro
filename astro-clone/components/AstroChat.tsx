@@ -5,6 +5,7 @@ import { Send, Sparkles, Loader2, AlertCircle } from "lucide-react";
 import { BirthChart } from "@/lib/astrology/kundli";
 import { buildChartContext, ChartContext } from "@/lib/astrology/context";
 import { retrieve } from "@/lib/astrology/knowledge-graph";
+import { selectContext } from "@/lib/astrology/context-select";
 
 interface Msg {
   role: "user" | "assistant";
@@ -52,7 +53,9 @@ export default function AstroChat({
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          chart: buildChartContext(chart, meta, new Date(), place),
+          // Only the slices this question needs — the full analysis is ~7.4k
+          // tokens and most of it is irrelevant to any single question.
+          chart: selectContext(buildChartContext(chart, meta, new Date(), place), question).context,
           messages: next,
           // Structured retrieval over the knowledge graph, scoped to this question.
           knowledge: retrieve(question, 40),

@@ -17,6 +17,9 @@ import { createServer } from "node:http";
 import { readFileSync, existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  handleApi, currentUser, COST_PER_MESSAGE, saveAiMessage, getBalance, applyCredits, newId,
+} from "./api.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const BIND = process.env.BIND || "127.0.0.1";
@@ -170,7 +173,9 @@ function buildPrompt(chart, messages, knowledge, retrieved) {
 
   return [
     "=== CHART DATA (authoritative, computed) ===",
-    JSON.stringify(chart, null, 1),
+    // Compact, not pretty-printed: indentation was ~40% of this block and the
+    // model reads it no better for being formatted.
+    JSON.stringify(chart),
     kb,
     rag,
     "",
@@ -255,7 +260,27 @@ const server = createServer(async (req, res) => {
     });
   }
 
-  if (url.pathname !== "/api/chat") return send(res, 404, { error: "not found" });
+  // Everything except /api/chat is handled by the API module.
+  if (url.pathname !== "/api/chat") {
+    let parsed = null;
+    if (req.method === "POST" || req.method === "PUT") {
+      try {
+        const raw = await readBody(req);
+        parsed = raw ? JSON.parse(raw) : {};
+      } catch {
+        return send(res, 400, { error: "invalid request body" });
+      }
+    }
+    try {
+      const handled = await handleApi(req, res, url, parsed);
+      if (handled) return;
+    } catch (e) {
+      console.error("[api]", e);
+      return send(res, 500, { error: "Something went wrong." });
+    }
+    return send(res, 404, { error: "not found" });
+  }
+
   if (req.method !== "POST") return send(res, 405, { error: "use POST" });
 
   const ip =
@@ -290,6 +315,27 @@ const server = createServer(async (req, res) => {
     return send(res, 400, { error: "chart required — generate a kundli first" });
   }
 
+  // Signed-in users are charged and get history; anonymous visitors may still
+  // try the chat, so the tool is usable before registering.
+  const user = currentUser(req);
+  const sessionId = String(payload.sessionId || "").slice(0, 64) || newId();
+  let charged = false;
+
+  if (user) {
+    try {
+      applyCredits(user.id, -COST_PER_MESSAGE, "ai_chat", sessionId);
+      charged = true;
+    } catch (e) {
+      if (e.message === "INSUFFICIENT_CREDITS") {
+        return send(res, 402, {
+          error: `You need ${COST_PER_MESSAGE} credits to ask a question. Balance: ${e.balance}.`,
+          balance: e.balance,
+        });
+      }
+      throw e;
+    }
+  }
+
   try {
     // Semantic retrieval. A failure here degrades the answer but must not
     // fail the request — the chart data alone is still a usable prompt.
@@ -303,10 +349,28 @@ const server = createServer(async (req, res) => {
     }
 
     const reply = await callGateway(buildPrompt(chart, messages, payload.knowledge, retrieved));
-    if (!reply) return send(res, 502, { error: "The astrologer had nothing to say. Try rephrasing." });
-    return send(res, 200, { reply });
+    if (!reply) {
+      // Nothing useful was produced, so give the credits back.
+      if (charged) applyCredits(user.id, COST_PER_MESSAGE, "ai_chat_refund", sessionId);
+      return send(res, 502, { error: "The astrologer had nothing to say. Try rephrasing." });
+    }
+
+    if (user) {
+      saveAiMessage(user.id, sessionId, "user", last.content);
+      saveAiMessage(user.id, sessionId, "assistant", reply);
+    }
+
+    return send(res, 200, {
+      reply,
+      sessionId,
+      ...(user ? { balance: getBalance(user.id) } : {}),
+    });
   } catch (err) {
     console.error("[chat]", err.message);
+    // The user paid for an answer they did not get.
+    if (charged) {
+      try { applyCredits(user.id, COST_PER_MESSAGE, "ai_chat_refund", sessionId); } catch { /* best effort */ }
+    }
     return send(res, 502, { error: "The astrologer is unavailable right now." });
   }
 });

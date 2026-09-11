@@ -7,6 +7,9 @@ import CalcHero from "@/components/CalcHero";
 import KundliResult from "@/components/KundliResult";
 import AstroChat from "@/components/AstroChat";
 import ChartAnalysisPanels from "@/components/ChartAnalysisPanels";
+import { useAuth } from "@/components/AuthProvider";
+import { api } from "@/lib/api";
+import { buildChartContext } from "@/lib/astrology/context";
 
 interface Meta { name: string; date: string; time: string; place: string; }
 
@@ -15,6 +18,7 @@ export default function FreeKundliPage() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [loading, setLoading] = useState(false);
   const [place, setPlace] = useState<{ latitude: number; longitude: number } | null>(null);
+  const { user, refresh } = useAuth();
 
   function handle(data: BirthData) {
     setLoading(true);
@@ -22,7 +26,23 @@ export default function FreeKundliPage() {
     setPlace({ latitude: data.lat, longitude: data.lon });
     setTimeout(() => {
       try {
-        setChart(calculateBirthChart({ date: data.date, time: data.time, latitude: data.lat, longitude: data.lon, tzOffset: "+05:30" }));
+        const computed = calculateBirthChart({ date: data.date, time: data.time, latitude: data.lat, longitude: data.lon, tzOffset: "+05:30" });
+        setChart(computed);
+
+        // Signed-in users get their details and chart stored, so an astrologer
+        // opening a consultation later sees exactly this chart rather than
+        // recomputing it. Failures here must not break the reading.
+        if (user) {
+          api.saveBirth({
+            dob: data.date, tob: data.time, pob: data.place,
+            latitude: data.lat, longitude: data.lon, tzOffset: "+05:30",
+          }).then(() => refresh()).catch(() => {});
+
+          api.saveChart(
+            buildChartContext(computed, { name: data.name, place: data.place, date: data.date, time: data.time },
+              new Date(), { latitude: data.lat, longitude: data.lon })
+          ).catch(() => {});
+        }
       } catch (e) {
         console.error(e);
         alert("Could not calculate the chart. Please check the birth details.");

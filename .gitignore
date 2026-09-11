@@ -30,3 +30,9 @@ credentials.json
 # RAG index is 3.6MB of build output - regenerate with scripts/build-rag-index.ts
 server/rag-index.json
 server/.rag-checkpoint.json
+
+# SQLite database — never commit user data
+server/data/
+*.db
+*.db-shm
+*.db-wal
